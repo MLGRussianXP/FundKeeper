@@ -22,3 +22,11 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+
+  lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Lint with Gradle
+        uses: yutailang0119/action-android-lint@v3.1.0
