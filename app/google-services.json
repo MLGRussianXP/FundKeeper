@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1046828473187",
+    "firebase_url": "https://fundkeeper-8e6a1-default-rtdb.firebaseio.com",
+    "project_id": "fundkeeper-8e6a1",
+    "storage_bucket": "fundkeeper-8e6a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046828473187:android:7fa5e9ee7a9914047e1156",
+        "android_client_info": {
+          "package_name": "dev.dkqz.fundkeeper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP6qbHxZ6T2r_ZCW0CKb7HkqB4TpXv8dk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
