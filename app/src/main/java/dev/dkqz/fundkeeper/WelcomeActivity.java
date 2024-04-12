@@ -57,14 +57,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void onSignInResult(@NonNull FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
+        if (response == null) return;
+
         if (result.getResultCode() == RESULT_OK) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            Toast.makeText(this, "Welcome " + user.getEmail(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Welcome, " + user.getEmail(), Toast.LENGTH_LONG).show();
         } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+            if (response != null && response.getError() != null) {
+                Toast.makeText(
+                        this,
+                        "Sign in failed " + response.getError().getErrorCode()
+                                + ". " + response.getError().getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
         }
     }
 }
