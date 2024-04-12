@@ -1,6 +1,5 @@
 package dev.dkqz.fundkeeper;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -20,7 +19,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -45,15 +44,14 @@ public class WelcomeActivity extends AppCompatActivity {
     );
 
     public void createSignInIntent() {
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build());
+        List<AuthUI.IdpConfig> providers = Collections.singletonList(
+                new AuthUI.IdpConfig.EmailBuilder().build());
 
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .build()
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                .setIsSmartLockEnabled(false)
+                .build();
         signInLauncher.launch(signInIntent);
     }
 
