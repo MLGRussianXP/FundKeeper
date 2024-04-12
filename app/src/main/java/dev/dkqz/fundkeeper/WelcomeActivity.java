@@ -61,9 +61,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
         if (result.getResultCode() == RESULT_OK) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user == null) return;
+
             Toast.makeText(this, "Welcome, " + user.getEmail(), Toast.LENGTH_LONG).show();
         } else {
-            if (response != null && response.getError() != null) {
+            if (response.getError() != null) {
                 Toast.makeText(
                         this,
                         "Sign in failed " + response.getError().getErrorCode()
