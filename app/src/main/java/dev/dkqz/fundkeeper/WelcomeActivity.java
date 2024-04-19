@@ -34,7 +34,10 @@ public class WelcomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
 
+    @Override
+    protected void onResume() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -42,6 +45,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         else
             createSignInIntent();
+        super.onResume();
     }
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
