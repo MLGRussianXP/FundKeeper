@@ -35,7 +35,13 @@ public class WelcomeActivity extends AppCompatActivity {
             return insets;
         });
 
-        createSignInIntent();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+            createSignInIntent();
     }
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
@@ -63,7 +69,11 @@ public class WelcomeActivity extends AppCompatActivity {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user == null) return;
 
-            Toast.makeText(this, "Welcome, " + user.getEmail(), Toast.LENGTH_LONG).show();
+            System.out.println("Logged in as " + user.getEmail());
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
         } else {
             if (response.getError() != null) {
                 Toast.makeText(
