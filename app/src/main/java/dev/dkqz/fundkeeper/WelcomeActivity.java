@@ -73,7 +73,6 @@ public class WelcomeActivity extends AppCompatActivity {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user == null) return;
 
-            System.out.println("Logged in as " + user.getEmail());
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
