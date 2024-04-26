@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setOnItemSelectedListener(this::onItemSelected);
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     ConverterFragment converterFragment = new ConverterFragment();
     CalculatorFragment calculatorFragment = new CalculatorFragment();
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, homeFragment).commit();
             return true;

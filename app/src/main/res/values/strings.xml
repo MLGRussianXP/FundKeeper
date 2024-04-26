@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">FundKeeper</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hmm?? How did you get here? 😏</string>
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="converter">Converter</string>
+    <string name="calculator">Calculator</string>
 </resources>
