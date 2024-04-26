@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
-    HomeFragment homeFragment = new HomeFragment();
-    HistoryFragment historyFragment = new HistoryFragment();
-    ConverterFragment converterFragment = new ConverterFragment();
-    CalculatorFragment calculatorFragment = new CalculatorFragment();
+    private final HomeFragment homeFragment = new HomeFragment();
+    private final HistoryFragment historyFragment = new HistoryFragment();
+    private final ConverterFragment converterFragment = new ConverterFragment();
+    private final CalculatorFragment calculatorFragment = new CalculatorFragment();
 
     public boolean onItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.home) {
