@@ -6,4 +6,19 @@
         android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/history"
+        android:title="History"
+        android:icon="@drawable/ic_history"/>
+
+    <item
+        android:id="@+id/converter"
+        android:title="Converter"
+        android:icon="@drawable/ic_converter"/>
+
+    <item
+        android:id="@+id/calculator"
+        android:title="Calculator"
+        android:icon="@drawable/ic_calculator"/>
 </menu>

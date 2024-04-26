@@ -32,11 +32,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     HomeFragment homeFragment = new HomeFragment();
+    HistoryFragment historyFragment = new HistoryFragment();
+    ConverterFragment converterFragment = new ConverterFragment();
+    CalculatorFragment calculatorFragment = new CalculatorFragment();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, homeFragment).commit();
+            return true;
+        } else if (menuItem.getItemId() == R.id.history) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, historyFragment).commit();
+            return true;
+        } else if (menuItem.getItemId() == R.id.converter) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, converterFragment).commit();
+            return true;
+        } else if (menuItem.getItemId() == R.id.calculator) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, calculatorFragment).commit();
             return true;
         }
         return false;
