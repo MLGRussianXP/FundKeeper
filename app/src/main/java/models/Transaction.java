@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 
 public class Transaction implements Serializable {
-    public static enum TransactionType {
+    public enum TransactionType {
         INCOME,
         EXPENSE
     }
 
-    public static enum Category {
+    public enum Category {
         FOOD,
         HOUSE,
         TRANSPORT,
@@ -31,7 +31,7 @@ public class Transaction implements Serializable {
     }
 
     private String key = "";
-    private String ownerUid = "";
+    private String accountKey = "";
 
     private String title = "";
     private TransactionType type = TransactionType.INCOME;
@@ -44,7 +44,7 @@ public class Transaction implements Serializable {
     public static DatabaseReference transactions = db.getReference().child("Transactions");
 
     public Transaction(String ownerUid, String title, TransactionType type, String description, long amount, long date, ArrayList<Category> categories) {
-        this.ownerUid = ownerUid;
+        this.accountKey = ownerUid;
         this.title = title;
         this.type = type;
         this.description = description;
@@ -63,12 +63,12 @@ public class Transaction implements Serializable {
         this.key = key;
     }
 
-    public String getOwnerUid() {
-        return ownerUid;
+    public String getAccountKey() {
+        return accountKey;
     }
 
-    public void setOwnerUid(String ownerKey) {
-        this.ownerUid = ownerKey;
+    public void setAccountKey(String accountKey) {
+        this.accountKey = accountKey;
     }
 
     public String getTitle() {

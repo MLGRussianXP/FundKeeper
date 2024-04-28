@@ -1,7 +1,9 @@
 package dev.dkqz.fundkeeper;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,11 +20,20 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
+import models.Account;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    public static String accountKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +49,44 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+        if (FirebaseAuth.getInstance().getCurrentUser() != null)
+            onGoToMainActivity();
         else
             createSignInIntent();
         super.onResume();
+    }
+
+    private void onGoToMainActivity() {
+        SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
+        accountKey = sharedPreferences.getString("accountKey", null);
+
+        Account.accounts.orderByChild("key").equalTo(accountKey).addListenerForSingleValueEvent(
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Account sp_account = snapshot.getValue(Account.class);
+                    String userUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+                    if (sp_account == null || !sp_account.getOwnerUid().equals(userUid)) {
+                        Account account = new Account(userUid, "Счёт", 0);
+                        DatabaseReference push = Account.accounts.push();
+                        accountKey = push.getKey();
+                        sharedPreferences.edit().putString("accountKey", accountKey).apply();
+                        account.setKey(accountKey);
+                        push.setValue(account);
+                    }
+
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(WelcomeActivity.this, "Error loading your \"bank\" account", Toast.LENGTH_SHORT).show();
+                }
+            }
+        );
     }
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
@@ -72,10 +113,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user == null) return;
-
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            onGoToMainActivity();
 
         } else {
             if (response.getError() != null) {

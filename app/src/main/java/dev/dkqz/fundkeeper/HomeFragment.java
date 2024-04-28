@@ -24,8 +24,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         Transaction transaction = new Transaction(
-                Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
+                WelcomeActivity.accountKey,
                 "test",
                 Transaction.TransactionType.INCOME,
                 "test",
