@@ -45,13 +45,16 @@ public class WelcomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
+            createSignInIntent();
+        else
+            onGoToMainActivity();
     }
 
     @Override
     protected void onResume() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null)
-            onGoToMainActivity();
-        else
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
             createSignInIntent();
         super.onResume();
     }
@@ -60,24 +63,29 @@ public class WelcomeActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         accountKey = sharedPreferences.getString("accountKey", null);
 
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
         Account.accounts.orderByChild("key").equalTo(accountKey).addListenerForSingleValueEvent(
             new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Account sp_account = snapshot.getValue(Account.class);
                     String userUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-                    if (sp_account == null || !sp_account.getOwnerUid().equals(userUid)) {
-                        Account account = new Account(userUid, "Счёт", 0);
-                        DatabaseReference push = Account.accounts.push();
-                        accountKey = push.getKey();
-                        sharedPreferences.edit().putString("accountKey", accountKey).apply();
-                        account.setKey(accountKey);
-                        push.setValue(account);
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Account sp_account = ds.getValue(Account.class);
+                        if (sp_account != null && sp_account.getOwnerUid().equals(userUid)) {
+                            startActivity(intent);
+                            return;
+                        }
                     }
 
-                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Account account = new Account(userUid, "Счёт", 0);
+                    DatabaseReference push = Account.accounts.push();
+                    accountKey = push.getKey();
+                    sharedPreferences.edit().putString("accountKey", accountKey).apply();
+                    account.setKey(accountKey);
+                    push.setValue(account);
                     startActivity(intent);
                 }
 

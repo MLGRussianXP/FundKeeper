@@ -31,8 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:hint="Name"
+                android:inputType="text" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -93,7 +93,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btnCreate"
+        android:id="@+id/btnCreateTransaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create"
