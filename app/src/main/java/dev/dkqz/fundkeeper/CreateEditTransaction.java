@@ -1,7 +1,6 @@
 package dev.dkqz.fundkeeper;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -53,7 +52,7 @@ public class CreateEditTransaction extends AppCompatActivity {
                 }
 
                 if (!accountArray.isEmpty()) {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateEditTransaction.this, android.R.layout.simple_spinner_item, accountArray);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CreateEditTransaction.this, android.R.layout.simple_spinner_item, accountArray);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     Spinner sItems = findViewById(R.id.spinnerAccount);
                     sItems.setAdapter(adapter);

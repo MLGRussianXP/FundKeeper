@@ -10,15 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-
-import models.Transaction;
-
 
 public class HomeFragment extends Fragment {
     public HomeFragment() {}
