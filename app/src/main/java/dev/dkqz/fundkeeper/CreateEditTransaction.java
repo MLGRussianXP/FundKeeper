@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import adapters.AccountsSpinnerAdapter;
 import models.Account;
 import models.Transaction;
 
@@ -44,22 +45,19 @@ public class CreateEditTransaction extends AppCompatActivity {
 
         // Accounts spinner
 
-        ArrayList<String> accountArray = new ArrayList<>();
-        ArrayList<String> accountKeysArray = new ArrayList<>();
+        ArrayList<Account> accountArray = new ArrayList<>();
         Account.accounts.orderByChild("ownerUid").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Account account = ds.getValue(Account.class);
-                    if (account != null) {
-                        accountArray.add(account.getName());
-                        accountKeysArray.add(account.getKey());
-                    }
+                    if (account != null)
+                        accountArray.add(account);
                 }
 
                 if (!accountArray.isEmpty()) {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CreateEditTransaction.this, android.R.layout.simple_spinner_item, accountArray);
+                    AccountsSpinnerAdapter adapter = new AccountsSpinnerAdapter(CreateEditTransaction.this, accountArray);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     Spinner sItems = findViewById(R.id.spinnerAccount);
                     sItems.setAdapter(adapter);
@@ -96,7 +94,7 @@ public class CreateEditTransaction extends AppCompatActivity {
         Button btnCreate = findViewById(R.id.btnCreateTransaction);
         btnCreate.setOnClickListener(v -> {
             Transaction transaction = new Transaction();
-            transaction.setAccountKey(accountKeysArray.get(((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItemPosition()));
+            transaction.setAccountKey(((Account) ((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItem()).getKey());
             transaction.setTitle(((EditText) findViewById(R.id.etName)).getText().toString());
 
             RadioGroup rg = findViewById(R.id.rgType);
