@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -41,14 +45,17 @@ public class CreateEditTransaction extends AppCompatActivity {
         // Accounts spinner
 
         ArrayList<String> accountArray = new ArrayList<>();
+        ArrayList<String> accountKeysArray = new ArrayList<>();
         Account.accounts.orderByChild("ownerUid").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Account account = ds.getValue(Account.class);
-                    if (account != null)
+                    if (account != null) {
                         accountArray.add(account.getName());
+                        accountKeysArray.add(account.getKey());
+                    }
                 }
 
                 if (!accountArray.isEmpty()) {
@@ -73,20 +80,48 @@ public class CreateEditTransaction extends AppCompatActivity {
         LinearLayout vlCheckboxes1 = findViewById(R.id.vlCheckboxes1);
         LinearLayout vlCheckboxes2 = findViewById(R.id.vlCheckboxes2);
 
-        int i = 0;
-        for (Transaction.Category category : Transaction.Category.values()) {
+        int categoriesCount = Transaction.Category.values().length;
+        ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+        for (int i = 0; i < categoriesCount; i++) {
             CheckBox cb = new CheckBox(this);
-            cb.setText(category.toString());
+            cb.setText(Transaction.Category.values()[i].name());
+            checkBoxes.add(cb);
+
             if (i % 2 == 0)
                 vlCheckboxes1.addView(cb);
             else
                 vlCheckboxes2.addView(cb);
-            i++;
         }
 
         Button btnCreate = findViewById(R.id.btnCreateTransaction);
         btnCreate.setOnClickListener(v -> {
+            Transaction transaction = new Transaction();
+            transaction.setAccountKey(accountKeysArray.get(((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItemPosition()));
+            transaction.setTitle(((EditText) findViewById(R.id.etName)).getText().toString());
 
+            RadioGroup rg = findViewById(R.id.rgType);
+            transaction.setType(rg.getCheckedRadioButtonId() == R.id.rbIncome ? Transaction.TransactionType.INCOME : Transaction.TransactionType.EXPENSE);
+
+            transaction.setDescription(((EditText) findViewById(R.id.etDescription)).getText().toString());
+
+            transaction.setAmount(Long.parseLong(((EditText) findViewById(R.id.etAmount)).getText().toString()));
+
+            ArrayList<Transaction.Category> categories = new ArrayList<>();
+            for (int i = 0; i < checkBoxes.size(); i++) {
+                if (checkBoxes.get(i).isChecked())
+                    categories.add(Transaction.Category.values()[i]);
+            }
+
+            transaction.setCategories(categories);
+
+            transaction.setDate(System.currentTimeMillis());
+
+            DatabaseReference push = Transaction.transactions.push();
+            String transactionKey = push.getKey();
+            transaction.setKey(transactionKey);
+            push.setValue(transaction);
+
+            finish();
         });
     }
 }
