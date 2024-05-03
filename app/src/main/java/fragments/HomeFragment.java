@@ -1,4 +1,4 @@
-package dev.dkqz.fundkeeper;
+package fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import adapters.TransactionsAdapter;
+import dev.dkqz.fundkeeper.CreateEditTransaction;
+import dev.dkqz.fundkeeper.R;
+import dev.dkqz.fundkeeper.WelcomeActivity;
 import models.Transaction;
 
 

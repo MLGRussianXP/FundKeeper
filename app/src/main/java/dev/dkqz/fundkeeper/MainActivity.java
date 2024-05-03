@@ -1,9 +1,7 @@
 package dev.dkqz.fundkeeper;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -13,16 +11,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
-
-import models.Account;
-import models.Transaction;
+import fragments.CalculatorFragment;
+import fragments.ConverterFragment;
+import fragments.HistoryFragment;
+import fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;

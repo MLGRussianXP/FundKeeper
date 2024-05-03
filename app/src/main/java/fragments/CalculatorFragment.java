@@ -1,4 +1,4 @@
-package dev.dkqz.fundkeeper;
+package fragments;
 
 import android.os.Bundle;
 
@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import dev.dkqz.fundkeeper.R;
 
-public class HistoryFragment extends Fragment {
-    public HistoryFragment() {}
+
+public class CalculatorFragment extends Fragment {
+    public CalculatorFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        return inflater.inflate(R.layout.fragment_calculator, container, false);
     }
 }
