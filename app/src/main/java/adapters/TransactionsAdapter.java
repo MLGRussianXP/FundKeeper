@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import dev.dkqz.fundkeeper.R;
@@ -76,5 +77,21 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
             itemView.setOnClickListener(v -> listener.onItemClick(item));
             itemView.setOnLongClickListener(v -> listener.onItemLongClick(item));
         }
+    }
+
+    public boolean shouldDrawDivider(int position) {
+        if (position == getItemCount() - 1)
+            return false;
+
+        Transaction transaction1 = transactions.get(position);
+        Transaction transaction2 = transactions.get(position + 1);
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTimeInMillis(transaction1.getDate());
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTimeInMillis(transaction2.getDate());
+
+        return calendar1.get(Calendar.DAY_OF_YEAR) != calendar2.get(Calendar.DAY_OF_YEAR) || calendar1.get(Calendar.YEAR) != calendar2.get(Calendar.YEAR);
     }
 }

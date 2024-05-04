@@ -1,7 +1,10 @@
 package fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,8 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import adapters.TransactionsAdapter;
+import decorations.DividerTransactionDecoration;
 import dev.dkqz.fundkeeper.CreateEditTransaction;
 import dev.dkqz.fundkeeper.R;
 import dev.dkqz.fundkeeper.WelcomeActivity;
@@ -44,6 +49,7 @@ public class HomeFragment extends Fragment {
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.rvTransactions);
+        recyclerView.addItemDecoration(new DividerTransactionDecoration(requireContext()));
         TransactionsAdapter adapter = new TransactionsAdapter(getContext(), transactions);
         recyclerView.setAdapter(adapter);
 
