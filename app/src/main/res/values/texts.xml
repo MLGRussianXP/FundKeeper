@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="whiteH1">
+        <item name="android:fontFamily">@font/pt_sans_bold</item>
+        <item name="android:textColor">@color/pureWhite</item>
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="whiteRegularH5">
+        <item name="android:fontFamily">@font/pt_sans</item>
+        <item name="android:textColor">@color/pureWhite</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="whiteRegularP">
+        <item name="android:fontFamily">@font/pt_sans</item>
+        <item name="android:textColor">@color/pureWhite</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

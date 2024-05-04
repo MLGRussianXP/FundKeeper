@@ -10,47 +10,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="тг."
-            android:textSize="48sp"
+        <ImageView
+            android:id="@+id/ivAccountBackground"
+            android:layout_width="0dp"
+            android:layout_height="136dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/account_rectangle_background"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvAmount"
+            style="@style/whiteH1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="12345"
+            app:layout_constraintStart_toStartOf="@+id/ivAccountBackground"
+            app:layout_constraintTop_toTopOf="@+id/ivAccountBackground" />
+
+        <TextView
+            android:id="@+id/tvCurrency"
+            style="@style/whiteH1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="₸"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAmount"
+            app:layout_constraintStart_toEndOf="@+id/tvAmount"
+            app:layout_constraintTop_toTopOf="@+id/tvAmount" />
+
+        <TextView
+            android:id="@+id/tvToday"
+            style="@style/whiteRegularH5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pt_sans"
             android:text="за сегодня"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="+"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.107"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="-"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.832"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintStart_toStartOf="@+id/tvAmount"
+            app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
 
         <Button
             android:id="@+id/btnNewTransaction"
@@ -69,7 +71,71 @@
             app:layout_constraintBottom_toTopOf="@+id/btnNewTransaction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/ivAccountBackground" />
+
+        <ImageView
+            android:id="@+id/ivIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_income"
+            app:layout_constraintStart_toStartOf="@+id/tvToday"
+            app:layout_constraintTop_toBottomOf="@+id/tvToday" />
+
+        <TextView
+            android:id="@+id/tvIncome"
+            style="@style/whiteRegularP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="123"
+            app:layout_constraintBottom_toBottomOf="@+id/ivIncome"
+            app:layout_constraintStart_toEndOf="@+id/ivIncome"
+            app:layout_constraintTop_toTopOf="@+id/ivIncome" />
+
+        <TextView
+            android:id="@+id/tvIncomeCurrency"
+            style="@style/whiteRegularP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="₸"
+            app:layout_constraintBottom_toBottomOf="@+id/tvIncome"
+            app:layout_constraintStart_toEndOf="@+id/tvIncome"
+            app:layout_constraintTop_toTopOf="@+id/tvIncome" />
+
+        <ImageView
+            android:id="@+id/ivExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_expense"
+            app:layout_constraintBottom_toBottomOf="@+id/tvExpense"
+            app:layout_constraintEnd_toStartOf="@+id/tvExpense"
+            app:layout_constraintTop_toTopOf="@+id/tvExpense" />
+
+        <TextView
+            android:id="@+id/tvExpense"
+            style="@style/whiteRegularP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="123"
+            app:layout_constraintBottom_toBottomOf="@+id/tvExpenseCurrency"
+            app:layout_constraintEnd_toStartOf="@+id/tvExpenseCurrency"
+            app:layout_constraintTop_toTopOf="@+id/tvExpenseCurrency" />
+
+        <TextView
+            android:id="@+id/tvExpenseCurrency"
+            style="@style/whiteRegularP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="₸"
+            app:layout_constraintBottom_toBottomOf="@+id/tvIncomeCurrency"
+            app:layout_constraintEnd_toEndOf="@+id/ivAccountBackground"
+            app:layout_constraintTop_toTopOf="@+id/tvIncomeCurrency" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
