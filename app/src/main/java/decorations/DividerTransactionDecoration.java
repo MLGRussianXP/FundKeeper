@@ -29,8 +29,8 @@ public class DividerTransactionDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(@NonNull Canvas c, RecyclerView parent, @NonNull RecyclerView.State state) {
-        int left = parent.getPaddingLeft();
-        int right = parent.getWidth() - parent.getPaddingRight();
+        int left = parent.getPaddingLeft() + 8 * 32;
+        int right = parent.getWidth() - parent.getPaddingRight() - 8 * 32;
         TransactionsAdapter adapter = (TransactionsAdapter) parent.getAdapter();
 
         int childCount = parent.getChildCount();

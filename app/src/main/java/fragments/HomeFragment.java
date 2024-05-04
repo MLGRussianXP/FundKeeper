@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import adapters.TransactionsAdapter;
 import decorations.DividerTransactionDecoration;
@@ -42,6 +40,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("app", MODE_PRIVATE);
+        sharedPreferences.edit().putString("accountKey", "-NwnsMza2tDfGvCrQptN").apply();
 
         FloatingActionButton addTransactionButton = view.findViewById(R.id.btnNewTransaction);
         addTransactionButton.setOnClickListener(v -> {
