@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -42,7 +43,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Button addTransactionButton = view.findViewById(R.id.btnNewTransaction);
+        FloatingActionButton addTransactionButton = view.findViewById(R.id.btnNewTransaction);
         addTransactionButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), CreateEditTransaction.class);
             startActivity(intent);
