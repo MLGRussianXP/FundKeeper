@@ -41,9 +41,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("app", MODE_PRIVATE);
-        sharedPreferences.edit().putString("accountKey", "-NwnsMza2tDfGvCrQptN").apply();
-
         FloatingActionButton addTransactionButton = view.findViewById(R.id.btnNewTransaction);
         addTransactionButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), CreateEditTransaction.class);
