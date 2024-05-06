@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
             android:text="12345"
             app:layout_constraintStart_toStartOf="@+id/ivAccountBackground"
             app:layout_constraintTop_toTopOf="@+id/ivAccountBackground" />
@@ -48,7 +49,7 @@
             style="@style/whiteRegularH5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:fontFamily="@font/pt_sans"
             android:text="за сегодня"
             app:layout_constraintStart_toStartOf="@+id/tvAmount"
@@ -59,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/ic_income"
             app:layout_constraintStart_toStartOf="@+id/tvToday"
             app:layout_constraintTop_toBottomOf="@+id/tvToday" />
