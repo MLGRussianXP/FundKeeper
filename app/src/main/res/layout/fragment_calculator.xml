@@ -18,7 +18,6 @@
             android:layout_marginTop="16dp"
             android:text="Калькулятор дохода"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:ems="10"
+            style="@style/etRegular"
             android:hint="Цена покупки"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -39,6 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            style="@style/etRegular"
             android:hint="Количество потраченных средств"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/etBuyPrice"
@@ -50,6 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            style="@style/etRegular"
             android:hint="Цена продажи"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/etBuyAmount"
