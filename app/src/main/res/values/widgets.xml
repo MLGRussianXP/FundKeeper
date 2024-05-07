@@ -3,6 +3,7 @@
     <style name="etRegular">
         <item name="android:padding">8dp</item>
         <item name="android:background">@drawable/edittext</item>
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
         <item name="android:fontFamily">@font/pt_sans</item>
     </style>
 </resources>

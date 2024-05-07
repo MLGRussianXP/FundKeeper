@@ -69,8 +69,8 @@ public class CalculatorFragment extends Fragment {
                     return;
                 }
 
-                double afterBalance = Double.parseDouble(String.format("%.2f", buyAmount * sellPrice / buyPrice));
-                double profit = Double.parseDouble(String.format("%.2f", afterBalance - buyAmount));
+                double afterBalance = (double) Math.round(buyAmount * sellPrice / buyPrice * 100) / 100;
+                double profit = (double) Math.round((afterBalance - buyAmount) * 100) / 100;
 
                 if (profit < 0)
                     tvProfit.setTextColor(requireContext().getColor(R.color.red));
