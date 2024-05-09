@@ -12,11 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
-import java.util.EventListener;
-import java.util.Objects;
 
 import dev.dkqz.fundkeeper.R;
 
