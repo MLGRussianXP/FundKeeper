@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fragments.HistoryFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <RadioGroup
+            android:id="@+id/rgPeriod"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/rbDay"
+                android:layout_width="96dp"
+                android:layout_height="40dp"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:fontFamily="@font/pt_sans"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="День"
+                android:textColor="@drawable/radio_flat_text_selector"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rbWeek"
+                android:layout_width="96dp"
+                android:layout_height="40dp"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/pt_sans"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Неделя"
+                android:textColor="@drawable/radio_flat_text_selector"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rbMonth"
+                android:layout_width="96dp"
+                android:layout_height="40dp"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/pt_sans"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Месяц"
+                android:textColor="@drawable/radio_flat_text_selector"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rbYear"
+                android:layout_width="96dp"
+                android:layout_height="40dp"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/pt_sans"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Год"
+                android:textColor="@drawable/radio_flat_text_selector"
+                android:textSize="18sp" />
+
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
