@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.EventListener;
 import java.util.Objects;
 
@@ -79,8 +80,17 @@ public class CalculatorFragment extends Fragment {
                 else
                     tvProfit.setTextColor(requireContext().getColor(R.color.gray));
 
-                tvProfit.setText("Профит: " + profit);
-                tvAfterBalance.setText("Итоговый баланс: " + afterBalance);
+                DecimalFormat df = new DecimalFormat("#.##");
+                String profitStr = df.format(profit);
+                String afterBalanceStr = df.format(afterBalance);
+
+                if (profit > 1e12)
+                    profitStr = "∞";
+                if (afterBalance > 1e12)
+                    afterBalanceStr = "∞";
+
+                tvProfit.setText("Профит: " + profitStr);
+                tvAfterBalance.setText("Итоговый баланс: " + afterBalanceStr);
             }
         };
 
