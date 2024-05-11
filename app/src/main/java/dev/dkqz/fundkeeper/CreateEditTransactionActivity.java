@@ -31,7 +31,7 @@ import adapters.AccountsSpinnerAdapter;
 import models.Account;
 import models.Transaction;
 
-public class CreateEditTransaction extends AppCompatActivity {
+public class CreateEditTransactionActivity extends AppCompatActivity {
     private Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -59,18 +59,18 @@ public class CreateEditTransaction extends AppCompatActivity {
                 }
 
                 if (!accountArray.isEmpty()) {
-                    AccountsSpinnerAdapter adapter = new AccountsSpinnerAdapter(CreateEditTransaction.this, accountArray);
+                    AccountsSpinnerAdapter adapter = new AccountsSpinnerAdapter(CreateEditTransactionActivity.this, accountArray);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     Spinner sItems = findViewById(R.id.spinnerAccount);
                     sItems.setAdapter(adapter);
                 }
                 else
-                    Toast.makeText(CreateEditTransaction.this, "There are no accounts.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateEditTransactionActivity.this, "There are no accounts.", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CreateEditTransaction.this, "Error while loading your \"bank\" accounts", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateEditTransactionActivity.this, "Error while loading your \"bank\" accounts", Toast.LENGTH_LONG).show();
             }
         });
 

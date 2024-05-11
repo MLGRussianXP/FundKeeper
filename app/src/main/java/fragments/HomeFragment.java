@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import adapters.TransactionsAdapter;
 import decorations.DividerTransactionDecoration;
-import dev.dkqz.fundkeeper.CreateEditTransaction;
+import dev.dkqz.fundkeeper.CreateEditTransactionActivity;
 import dev.dkqz.fundkeeper.R;
 import dev.dkqz.fundkeeper.WelcomeActivity;
 import models.Transaction;
@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
 
         FloatingActionButton addTransactionButton = view.findViewById(R.id.btnNewTransaction);
         addTransactionButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), CreateEditTransaction.class);
+            Intent intent = new Intent(getContext(), CreateEditTransactionActivity.class);
             startActivity(intent);
         });
 
