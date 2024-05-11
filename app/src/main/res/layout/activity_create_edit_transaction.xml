@@ -115,7 +115,69 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" />
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <EditText
+                    android:id="@+id/in_date"
+                    style="@style/etRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="2"
+                    android:editable="false" />
+
+                <Button
+                    android:id="@+id/btn_date"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/main"
+                    android:fontFamily="@font/pt_sans_bold"
+                    android:text="Выбрать дату" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <EditText
+                    android:id="@+id/in_time"
+                    style="@style/etRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="2"
+                    android:editable="false" />
+
+                <Button
+                    android:id="@+id/btn_time"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/main"
+                    android:fontFamily="@font/pt_sans_bold"
+                    android:text="Выбрать время" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAboutTime"
+                style="@style/grayFootNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="По умолчанию, транзакция будет создана с текущим временем" />
 
         </LinearLayout>
     </ScrollView>
@@ -126,8 +188,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/main"
-        android:text="Создать"
         android:fontFamily="@font/pt_sans_bold"
+        android:text="Создать"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

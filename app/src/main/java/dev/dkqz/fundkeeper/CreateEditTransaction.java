@@ -63,7 +63,7 @@ public class CreateEditTransaction extends AppCompatActivity {
                     sItems.setAdapter(adapter);
                 }
                 else
-                    Toast.makeText(CreateEditTransaction.this, "Error while loading your \"bank\" accounts. There are no accounts.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateEditTransaction.this, "There are no accounts.", Toast.LENGTH_LONG).show();
             }
 
             @Override

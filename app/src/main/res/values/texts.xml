@@ -53,4 +53,10 @@
         <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="grayFootNote">
+        <item name="android:fontFamily">@font/pt_sans</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
