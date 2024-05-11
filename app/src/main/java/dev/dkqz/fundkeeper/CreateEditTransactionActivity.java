@@ -32,7 +32,7 @@ import models.Account;
 import models.Transaction;
 
 public class CreateEditTransactionActivity extends AppCompatActivity {
-    private Calendar calendar = Calendar.getInstance();
+    private final Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
