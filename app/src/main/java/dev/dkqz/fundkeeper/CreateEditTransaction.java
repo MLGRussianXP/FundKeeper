@@ -1,12 +1,12 @@
 package dev.dkqz.fundkeeper;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -25,12 +25,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import adapters.AccountsSpinnerAdapter;
 import models.Account;
 import models.Transaction;
 
 public class CreateEditTransaction extends AppCompatActivity {
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,46 @@ public class CreateEditTransaction extends AppCompatActivity {
                 vlCheckboxes2.addView(cb);
         }
 
+        // Date and time
+
+        Button btnDatePicker = findViewById(R.id.btnDate);
+        Button btnTimePicker = findViewById(R.id.btnTime);
+        EditText etDate = findViewById(R.id.etDate);
+        EditText etTime = findViewById(R.id.etTime);
+
+        btnDatePicker.setOnClickListener(v -> {
+            int mYear = calendar.get(Calendar.YEAR);
+            int mMonth = calendar.get(Calendar.MONTH);
+            int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    this,
+                    (view, year, monthOfYear, dayOfMonth) -> {
+                        etDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        calendar.set(year, monthOfYear, dayOfMonth);
+                    },
+                    mYear, mMonth, mDay
+            );
+            datePickerDialog.show();
+        });
+
+        btnTimePicker.setOnClickListener(v -> {
+            int mHour = calendar.get(Calendar.HOUR_OF_DAY);
+            int mMinute = calendar.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(
+                    this,
+                    (view, hourOfDay, minute) -> {
+                        etTime.setText(hourOfDay + ":" + minute);
+                        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), hourOfDay, minute, 0);
+                    },
+                    mHour, mMinute, true
+            );
+            timePickerDialog.show();
+        });
+
+        // Create
+
         Button btnCreate = findViewById(R.id.btnCreateTransaction);
         btnCreate.setOnClickListener(v -> {
             Transaction transaction = new Transaction();
@@ -112,7 +154,7 @@ public class CreateEditTransaction extends AppCompatActivity {
 
             transaction.setCategories(categories);
 
-            transaction.setDate(System.currentTimeMillis());
+            transaction.setDate(calendar.getTimeInMillis());
 
             DatabaseReference push = Transaction.transactions.push();
             String transactionKey = push.getKey();

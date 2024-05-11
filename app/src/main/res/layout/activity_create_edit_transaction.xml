@@ -118,27 +118,33 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/ivDivider1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/divider" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="12dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/in_date"
+                    android:id="@+id/etDate"
                     style="@style/etRegular"
-                    android:layout_width="wrap_content"
+                    android:layout_width="128dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="2"
                     android:editable="false" />
 
                 <Button
-                    android:id="@+id/btn_date"
-                    android:layout_width="64dp"
+                    android:id="@+id/btnDate"
+                    android:layout_width="196dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:backgroundTint="@color/main"
                     android:fontFamily="@font/pt_sans_bold"
                     android:text="Выбрать дату" />
@@ -147,23 +153,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/in_time"
+                    android:id="@+id/etTime"
                     style="@style/etRegular"
-                    android:layout_width="wrap_content"
+                    android:layout_width="128dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="2"
                     android:editable="false" />
 
                 <Button
-                    android:id="@+id/btn_time"
-                    android:layout_width="64dp"
+                    android:id="@+id/btnTime"
+                    android:layout_width="196dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:backgroundTint="@color/main"
                     android:fontFamily="@font/pt_sans_bold"
                     android:text="Выбрать время" />

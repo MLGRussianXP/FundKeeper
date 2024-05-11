@@ -59,6 +59,9 @@ public class HomeFragment extends Fragment {
                     if (transaction != null)
                         transactions.add(transaction);
                 }
+
+                transactions.sort((t1, t2) -> Long.compare(t2.getDate(), t1.getDate()));
+
                 adapter.notifyDataSetChanged();
             }
 
