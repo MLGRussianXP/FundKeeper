@@ -32,7 +32,7 @@ import models.Account;
 import models.Transaction;
 
 public class CreateEditTransactionActivity extends AppCompatActivity {
-    private final Calendar calendar = Calendar.getInstance();
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,9 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     this,
                     (view, year, monthOfYear, dayOfMonth) -> {
-                        etDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        etDate.setText(String.format("%02d-%02d-%d", dayOfMonth, monthOfYear + 1, year));
+                        if (calendar == null)
+                            calendar = Calendar.getInstance();
                         calendar.set(year, monthOfYear, dayOfMonth);
                     },
                     mYear, mMonth, mDay
@@ -123,7 +125,9 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
             TimePickerDialog timePickerDialog = new TimePickerDialog(
                     this,
                     (view, hourOfDay, minute) -> {
-                        etTime.setText(hourOfDay + ":" + minute);
+                        etTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                        if (calendar == null)
+                            calendar = Calendar.getInstance();
                         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), hourOfDay, minute, 0);
                     },
                     mHour, mMinute, true
@@ -154,6 +158,8 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
 
             transaction.setCategories(categories);
 
+            if (calendar == null)
+                calendar = Calendar.getInstance();
             transaction.setDate(calendar.getTimeInMillis());
 
             DatabaseReference push = Transaction.transactions.push();
