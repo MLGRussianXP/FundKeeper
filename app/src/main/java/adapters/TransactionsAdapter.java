@@ -47,6 +47,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
         if (transaction.getType() == Transaction.TransactionType.EXPENSE)
             holder.typeView.setImageResource(R.drawable.ic_expense);
+        else
+            holder.typeView.setImageResource(R.drawable.ic_income);
 
         holder.bind(transaction, new OnItemClickListener() {
             @Override

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,6 +26,7 @@ import decorations.DividerTransactionDecoration;
 import dev.dkqz.fundkeeper.CreateEditTransactionActivity;
 import dev.dkqz.fundkeeper.R;
 import dev.dkqz.fundkeeper.WelcomeActivity;
+import models.Account;
 import models.Transaction;
 
 
@@ -43,6 +45,8 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getContext(), CreateEditTransactionActivity.class);
             startActivity(intent);
         });
+
+        // Transactions list
 
         RecyclerView recyclerView = view.findViewById(R.id.rvTransactions);
         recyclerView.addItemDecoration(new DividerTransactionDecoration(requireContext()));
@@ -68,6 +72,28 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "Error loading your transactions", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Account balance
+
+        TextView tvBalance = view.findViewById(R.id.tvAmount);
+        Account.accounts.orderByChild("key").equalTo(WelcomeActivity.accountKey).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Account account = ds.getValue(Account.class);
+                    if (account != null) {
+                        tvBalance.setText(String.valueOf(account.getBalance()));
+                        return;
+                    }
+                }
+                Toast.makeText(getContext(), "Error fetching your \"bank\" account", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Error fetching your \"bank\" account", Toast.LENGTH_LONG).show();
             }
         });
 
