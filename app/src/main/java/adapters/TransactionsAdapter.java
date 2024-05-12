@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         holder.amountView.setText(String.valueOf(transaction.getAmount()));
         holder.timeView.setText(String.valueOf(transaction.getDate()));
 
+        if (transaction.getType() == Transaction.TransactionType.EXPENSE)
+            holder.typeView.setImageResource(R.drawable.ic_expense);
+
         holder.bind(transaction, new OnItemClickListener() {
             @Override
             public void onItemClick(Transaction item) {
@@ -65,12 +69,14 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView nameView, amountView, timeView;
+        final ImageView typeView;
 
         ViewHolder(View view){
             super(view);
             nameView = view.findViewById(R.id.name);
             amountView = view.findViewById(R.id.amount);
             timeView = view.findViewById(R.id.time);
+            typeView = view.findViewById(R.id.ivType);
         }
 
         public void bind(final Transaction item, final OnItemClickListener listener) {

@@ -101,6 +101,8 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         EditText etTime = findViewById(R.id.etTime);
 
         btnDatePicker.setOnClickListener(v -> {
+            if (calendar == null)
+                calendar = Calendar.getInstance();
             int mYear = calendar.get(Calendar.YEAR);
             int mMonth = calendar.get(Calendar.MONTH);
             int mDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -109,8 +111,6 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                     this,
                     (view, year, monthOfYear, dayOfMonth) -> {
                         etDate.setText(String.format("%02d-%02d-%d", dayOfMonth, monthOfYear + 1, year));
-                        if (calendar == null)
-                            calendar = Calendar.getInstance();
                         calendar.set(year, monthOfYear, dayOfMonth);
                     },
                     mYear, mMonth, mDay
@@ -119,6 +119,8 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         });
 
         btnTimePicker.setOnClickListener(v -> {
+            if (calendar == null)
+                calendar = Calendar.getInstance();
             int mHour = calendar.get(Calendar.HOUR_OF_DAY);
             int mMinute = calendar.get(Calendar.MINUTE);
 
@@ -126,8 +128,6 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                     this,
                     (view, hourOfDay, minute) -> {
                         etTime.setText(String.format("%02d:%02d", hourOfDay, minute));
-                        if (calendar == null)
-                            calendar = Calendar.getInstance();
                         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), hourOfDay, minute, 0);
                     },
                     mHour, mMinute, true
@@ -140,7 +140,9 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         Button btnCreate = findViewById(R.id.btnCreateTransaction);
         btnCreate.setOnClickListener(v -> {
             Transaction transaction = new Transaction();
-            transaction.setAccountKey(((Account) ((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItem()).getKey());
+
+            String accountKey = ((Account) ((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItem()).getKey();
+            transaction.setAccountKey(accountKey);
             transaction.setTitle(((EditText) findViewById(R.id.etName)).getText().toString());
 
             RadioGroup rg = findViewById(R.id.rgType);
@@ -162,12 +164,34 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                 calendar = Calendar.getInstance();
             transaction.setDate(calendar.getTimeInMillis());
 
-            DatabaseReference push = Transaction.transactions.push();
-            String transactionKey = push.getKey();
-            transaction.setKey(transactionKey);
-            push.setValue(transaction);
+            Account.accounts.orderByChild("key").equalTo(accountKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Account account = ds.getValue(Account.class);
+                        if (account != null) {
+                            long balanceDiff = transaction.getAmount();
+                            if (transaction.getType() == Transaction.TransactionType.EXPENSE)
+                                balanceDiff *= -1;
+                            snapshot.getRef().child(accountKey + "/balance").setValue(account.getBalance() + balanceDiff);
 
-            finish();
+                            DatabaseReference push = Transaction.transactions.push();
+                            String transactionKey = push.getKey();
+                            transaction.setKey(transactionKey);
+                            push.setValue(transaction);
+
+                            finish();
+                            return;
+                        }
+                    }
+                    Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching selected \"bank\" account", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching selected \"bank\" account", Toast.LENGTH_LONG).show();
+                }
+            });
         });
     }
 }
