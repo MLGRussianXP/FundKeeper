@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import adapters.TransactionsAdapter;
 import decorations.DividerTransactionDecoration;
@@ -32,6 +33,7 @@ import models.Transaction;
 
 public class HomeFragment extends Fragment {
     private final ArrayList<Transaction> transactions = new ArrayList<>();
+    private long balance = 0, todayPlus = 0, todayMinus = 0;
 
     public HomeFragment() {}
 
@@ -78,13 +80,16 @@ public class HomeFragment extends Fragment {
         // Account balance
 
         TextView tvBalance = view.findViewById(R.id.tvAmount);
+        tvBalance.setText(String.valueOf(balance));
+
         Account.accounts.orderByChild("key").equalTo(WelcomeActivity.accountKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Account account = ds.getValue(Account.class);
                     if (account != null) {
-                        tvBalance.setText(String.valueOf(account.getBalance()));
+                        balance = account.getBalance();
+                        tvBalance.setText(String.valueOf(balance));
                         return;
                     }
                 }
@@ -94,6 +99,46 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "Error fetching your \"bank\" account", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Today
+
+        TextView tvTodayPlus = view.findViewById(R.id.tvIncome);
+        TextView tvTodayMinus = view.findViewById(R.id.tvExpense);
+
+        tvTodayPlus.setText(String.valueOf(todayPlus));
+        tvTodayMinus.setText(String.valueOf(todayMinus));
+
+        Transaction.transactions.orderByChild("accountKey").equalTo(WelcomeActivity.accountKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                todayPlus = 0;
+                todayMinus = 0;
+                Calendar calendar = Calendar.getInstance();
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Transaction transaction = ds.getValue(Transaction.class);
+                    if (transaction == null)
+                        continue;
+
+                    calendar.setTimeInMillis(transaction.getDate());
+                    if (calendar.get(Calendar.DAY_OF_YEAR) != Calendar.getInstance().get(Calendar.DAY_OF_YEAR) && calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
+                        continue;
+
+                    if (transaction.getType() == Transaction.TransactionType.EXPENSE)
+                        todayMinus += transaction.getAmount();
+                    else
+                        todayPlus += transaction.getAmount();
+                }
+
+                tvTodayPlus.setText(String.valueOf(todayPlus));
+                tvTodayMinus.setText(String.valueOf(todayMinus));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Error fetching transactions", Toast.LENGTH_LONG).show();
             }
         });
 
