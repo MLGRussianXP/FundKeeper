@@ -66,33 +66,33 @@ public class WelcomeActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
         Account.accounts.orderByChild("key").equalTo(accountKey).addListenerForSingleValueEvent(
-            new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String userUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String userUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        Account sp_account = ds.getValue(Account.class);
-                        if (sp_account != null && sp_account.getOwnerUid().equals(userUid)) {
-                            startActivity(intent);
-                            return;
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            Account sp_account = ds.getValue(Account.class);
+                            if (sp_account != null && sp_account.getOwnerUid().equals(userUid)) {
+                                startActivity(intent);
+                                return;
+                            }
                         }
+
+                        Account account = new Account(userUid, "Счёт", 0);
+                        DatabaseReference push = Account.accounts.push();
+                        accountKey = push.getKey();
+                        sharedPreferences.edit().putString("accountKey", accountKey).apply();
+                        account.setKey(accountKey);
+                        push.setValue(account);
+                        startActivity(intent);
                     }
 
-                    Account account = new Account(userUid, "Счёт", 0);
-                    DatabaseReference push = Account.accounts.push();
-                    accountKey = push.getKey();
-                    sharedPreferences.edit().putString("accountKey", accountKey).apply();
-                    account.setKey(accountKey);
-                    push.setValue(account);
-                    startActivity(intent);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(WelcomeActivity.this, "Error loading your \"bank\" account", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(WelcomeActivity.this, "Error loading your \"bank\" account", Toast.LENGTH_SHORT).show();
-                }
-            }
         );
     }
 

@@ -28,6 +28,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
     public interface OnItemClickListener {
         void onItemClick(Transaction item);
+
         boolean onItemLongClick(Transaction item);
     }
 
@@ -73,7 +74,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         final TextView nameView, amountView, timeView;
         final ImageView typeView;
 
-        ViewHolder(View view){
+        ViewHolder(View view) {
             super(view);
             nameView = view.findViewById(R.id.name);
             amountView = view.findViewById(R.id.amount);

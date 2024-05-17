@@ -21,7 +21,8 @@ public class Account implements Serializable {
         this.balance = balance;
     }
 
-    public Account() {}
+    public Account() {
+    }
 
     public String getKey() {
         return key;

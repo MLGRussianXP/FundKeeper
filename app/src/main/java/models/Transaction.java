@@ -53,7 +53,8 @@ public class Transaction implements Serializable {
         this.categories = categories;
     }
 
-    public Transaction() {}
+    public Transaction() {
+    }
 
     public String getKey() {
         return key;

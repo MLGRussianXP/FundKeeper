@@ -1,9 +1,6 @@
 package fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,13 +9,16 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import java.text.DecimalFormat;
 
 import dev.dkqz.fundkeeper.R;
 
 
 public class CalculatorFragment extends Fragment {
-    public CalculatorFragment() {}
+    public CalculatorFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,10 +34,12 @@ public class CalculatorFragment extends Fragment {
 
         TextWatcher watcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -47,22 +49,19 @@ public class CalculatorFragment extends Fragment {
 
                 try {
                     buyPrice = Double.parseDouble(etBuyPrice.getText().toString());
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     return;
                 }
 
                 try {
                     buyAmount = Double.parseDouble(etBuyAmount.getText().toString());
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     return;
                 }
 
                 try {
                     sellPrice = Double.parseDouble(etSellPrice.getText().toString());
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     return;
                 }
 

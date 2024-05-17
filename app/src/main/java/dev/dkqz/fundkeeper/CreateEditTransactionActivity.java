@@ -63,8 +63,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     Spinner sItems = findViewById(R.id.spinnerAccount);
                     sItems.setAdapter(adapter);
-                }
-                else
+                } else
                     Toast.makeText(CreateEditTransactionActivity.this, "There are no accounts.", Toast.LENGTH_LONG).show();
             }
 
