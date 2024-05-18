@@ -1,13 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="fragments.ConverterFragment">
 
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="300dp"
+        android:id="@+id/card_view"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="25dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/masterLinearLayout"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dropdown_menu_layout"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/layoutOne"
+                    android:gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/convertFromTitle"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.0"
+                        android:text="Convert from"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/convertToTitle"
+                        android:layout_weight="1.0"
+                        android:text="Convert to"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/layoutTwo">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/convert_from_dropwdown_menu"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.0"
+                        android:background="@android:drawable/editbox_background"
+                        android:hint="select country"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="10sp"
+                        app:drawableEndCompat="@drawable/baseline_arrow_drop_down_24"
+                        app:drawableRightCompat="@drawable/baseline_arrow_drop_down_24"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/convert_to_dropwdown_menu"
+                        android:layout_weight="1.0"
+                        android:background="@android:drawable/editbox_background"
+                        android:hint="select country"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="10sp"
+                        app:drawableEndCompat="@drawable/baseline_arrow_drop_down_24"
+                        app:drawableRightCompat="@drawable/baseline_arrow_drop_down_24"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/linearLayout01"
+                    android:gravity="top|bottom|center_vertical|fill_vertical|center|fill">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/amountToConvertValueText"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.0"
+                        android:text="Amount to convert"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/conversionRateResultText"
+                        android:layout_weight="1.0"
+                        android:gravity="center"
+                        android:text="Conversion rate"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout4"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/amountToConvertValueEditText"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.0"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/conversionRateText"
+                        android:layout_weight="1.0"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="20dp">
+                
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/conversionButton"
+                    android:gravity="center"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:text="Convert"
+                    android:textColor="#ffffff"/>
+                
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

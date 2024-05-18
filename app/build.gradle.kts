@@ -1,6 +1,15 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.androidApplication)
     id("com.google.gms.google-services")
+}
+
+val apikeyPropertiesFile = rootProject.file("apikey.properties")
+val apikeyProperties = Properties()
+FileInputStream(apikeyPropertiesFile).use { fileInputStream ->
+    apikeyProperties.load(fileInputStream)
 }
 
 android {
@@ -17,6 +26,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField("String", "EXCHANGERATE_KEY",
+            apikeyProperties["EXCHANGERATE_KEY"].toString()
+        )
     }
 
     buildTypes {
@@ -32,6 +45,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -44,6 +60,7 @@ dependencies {
     implementation(libs.firebase.ui.auth)
     implementation(libs.play.services.auth.v2030)
     implementation(libs.work.runtime)
+    implementation(libs.volley)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
