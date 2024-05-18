@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +28,24 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 import dev.dkqz.fundkeeper.BuildConfig;
 import dev.dkqz.fundkeeper.R;
 
 
 public class ConverterFragment extends Fragment {
-    TextView convertFromDropdownTextView, convertToDropdownTextView, conversionRateText;
-    EditText amountToConvert;
-    ArrayList<String> arrayList;
-    Dialog fromDialog, toDialog;
+    TextView dmConvertFrom, dmConvertTo, tvResult;
+    EditText etAmount;
+    ArrayList<String> currencies;
     Button convertButton;
-    String convertFromValue, convertToValue, conversionValue;
-    String[] country = {
+    String convertFromValue, convertToValue;
+
+    long lastConvertedTime = 0;
+    int width, height;
+
+    final String[] CURRENCIES = {
             "AFN", // Afghan Afghani
             "EUR", // Euro
             "ALL", // Albanian Lek
@@ -205,92 +211,34 @@ public class ConverterFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_converter, container, false);
 
-        convertFromDropdownTextView = view.findViewById(R.id.convert_from_dropwdown_menu);
-        convertToDropdownTextView = view.findViewById(R.id.convert_to_dropwdown_menu);
-        convertButton = view.findViewById(R.id.conversionButton);
-        conversionRateText = view.findViewById(R.id.conversionRateText);
-        amountToConvert = view.findViewById(R.id.amountToConvertValueEditText);
+        dmConvertFrom = view.findViewById(R.id.dmConvertFrom);
+        dmConvertTo = view.findViewById(R.id.dmConvertTo);
+        convertButton = view.findViewById(R.id.btnConvert);
+        tvResult = view.findViewById(R.id.tvResult);
+        etAmount = view.findViewById(R.id.etAmount);
 
-        arrayList = new ArrayList<>();
-        Collections.addAll(arrayList, country);
+        currencies = new ArrayList<>();
+        Collections.addAll(currencies, CURRENCIES);
 
-        convertFromDropdownTextView.setOnClickListener(v -> {
-            fromDialog = new Dialog(requireContext());
-            fromDialog.setContentView(R.layout.converter_country_spinner);
-            fromDialog.getWindow().setLayout(650, 800);
-            fromDialog.show();
+        // Dialogs
 
-            EditText editText = fromDialog.findViewById(R.id.edit_text);
-            ListView listView = fromDialog.findViewById(R.id.list_view);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        width = displayMetrics.widthPixels;
+        height = displayMetrics.heightPixels;
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, arrayList);
-            listView.setAdapter(adapter);
+        dmConvertFrom.setOnClickListener(v ->
+                setupDialog(dmConvertFrom, selectedValue -> convertFromValue = selectedValue));
 
-            editText.addTextChangedListener(new TextWatcher() {
+        dmConvertTo.setOnClickListener(v ->
+                setupDialog(dmConvertTo, selectedValue -> convertToValue = selectedValue));
 
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    adapter.getFilter().filter(charSequence);
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            listView.setOnItemClickListener((adapterView, view1, i, l) -> {
-                convertFromDropdownTextView.setText(adapter.getItem(i));
-                fromDialog.dismiss();
-                convertFromValue = adapter.getItem(i);
-            });
-        });
-
-        convertToDropdownTextView.setOnClickListener(view12 -> {
-            toDialog = new Dialog(requireContext());
-            toDialog.setContentView(R.layout.converter_country_spinner);
-            toDialog.getWindow().setLayout(650, 800);
-            toDialog.show();
-
-            EditText editText = toDialog.findViewById(R.id.edit_text);
-            ListView listView = toDialog.findViewById(R.id.list_view);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, arrayList);
-            listView.setAdapter(adapter);
-
-            editText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    adapter.getFilter().filter(charSequence);
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            listView.setOnItemClickListener((adapterView, view1, i, l) -> {
-                convertToDropdownTextView.setText(adapter.getItem(i));
-                toDialog.dismiss();
-                convertToValue = adapter.getItem(i);
-            });
-        });
+        // Convert button
 
         convertButton.setOnClickListener(view1 -> {
             try {
-                Double amountToConvertValue = Double.parseDouble(amountToConvert.getText().toString());
-                getConversionRate(convertFromValue, convertToValue, amountToConvertValue);
+                Double amount = Double.parseDouble(etAmount.getText().toString());
+                getConversionRate(convertFromValue, convertToValue, amount);
             } catch (Exception e) {
                 Toast.makeText(requireContext(), "Error getting conversion rate", Toast.LENGTH_SHORT).show();
             }
@@ -299,17 +247,56 @@ public class ConverterFragment extends Fragment {
         return view;
     }
 
-    public void getConversionRate(String conversionFrom, String conversionTo, Double amountToConvert) {
+    private void setupDialog(TextView view, Consumer<String> onItemSelected) {
+        Dialog dialog = new Dialog(requireContext());
+        dialog.setContentView(R.layout.converter_country_spinner);
+        Objects.requireNonNull(dialog.getWindow()).setLayout((int) (width / 1.3), height / 2);
+        dialog.show();
+
+        EditText editText = dialog.findViewById(R.id.etSearch);
+        ListView listView = dialog.findViewById(R.id.lvCurrencies);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, currencies);
+        listView.setAdapter(adapter);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+
+        listView.setOnItemClickListener((adapterView, view1, i, l) -> {
+            String selectedItem = adapter.getItem(i);
+            view.setText(selectedItem);
+            dialog.dismiss();
+            onItemSelected.accept(selectedItem);
+        });
+    }
+
+    public void getConversionRate(String convertFrom, String convertTo, Double amount) {
+        if (lastConvertedTime > 0 && System.currentTimeMillis() - lastConvertedTime < 5000) {
+            Toast.makeText(requireContext(), "Please wait 5 seconds before converting again", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         RequestQueue queue = Volley.newRequestQueue(requireContext());
-        String url = "https://v6.exchangerate-api.com/v6/" + BuildConfig.EXCHANGERATE_KEY + "/pair/" + conversionFrom + "/" + conversionTo;
+        String url = "https://v6.exchangerate-api.com/v6/" + BuildConfig.EXCHANGERATE_KEY + "/pair/" + convertFrom + "/" + convertTo;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, s -> {
-            JSONObject jsonObject;
             try {
-                jsonObject = new JSONObject(s);
+                JSONObject jsonObject = new JSONObject(s);
                 Double conversionRateValue = (Double) jsonObject.get("conversion_rate");
-                conversionValue = "" + round((conversionRateValue * amountToConvert), 2);
-                conversionRateText.setText(conversionValue);
+                String conversionValue = String.valueOf(round((conversionRateValue * amount), 2));
+                tvResult.setText(conversionValue);
+
+                lastConvertedTime = System.currentTimeMillis();
             }
             catch (Exception e) {
                 Toast.makeText(requireContext(), "Error getting conversion rate", Toast.LENGTH_SHORT).show();

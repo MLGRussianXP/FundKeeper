@@ -2,29 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select country"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        style="@style/blackRegularH5"
+        android:text="Select country"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_text"
+        android:id="@+id/etSearch"
+        style="@style/etRegular"
         android:hint="search..."
         android:padding="12dp"
-        android:singleLine="true"
+        android:maxLines="1"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:drawable/editbox_background"/>
+        android:layout_marginBottom="8dp"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_view"/>
+        android:id="@+id/lvCurrencies"/>
 
 </LinearLayout>
