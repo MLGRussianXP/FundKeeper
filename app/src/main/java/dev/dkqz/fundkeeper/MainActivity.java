@@ -1,10 +1,14 @@
 package dev.dkqz.fundkeeper;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Process;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -34,6 +38,22 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(this::onItemSelected);
         bottomNavigationView.setSelectedItemId(R.id.home);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Exit")
+                    .setMessage("Are you sure you want to exit?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        moveTaskToBack(true);
+                        Process.killProcess(Process.myPid());
+                        System.exit(1);
+                    }).setNegativeButton("No", null);
+                builder.show();
+            }
+        });
     }
 
     private final HomeFragment homeFragment = new HomeFragment();
