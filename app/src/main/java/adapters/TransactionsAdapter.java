@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import models.Transaction;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewHolder> {
     private final LayoutInflater inflater;
-    private final List<Transaction> transactions;
+    List<Transaction> transactions;
 
     public TransactionsAdapter(Context context, List<Transaction> transactions) {
         this.transactions = transactions;
@@ -44,12 +45,27 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         Transaction transaction = transactions.get(position);
         holder.nameView.setText(transaction.getTitle());
         holder.amountView.setText(String.valueOf(transaction.getAmount()));
-        holder.timeView.setText(String.valueOf(transaction.getDate()));
+
+        // Date
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(transaction.getDate());
+
+        if (calendar.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) && calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
+            holder.timeView.setText(DateFormat.format("Today, HH:mm", calendar));
+        else if (calendar.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1 && calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
+            holder.timeView.setText(DateFormat.format("Yesterday, HH:mm", calendar));
+        else
+            holder.timeView.setText(DateFormat.format("HH:mm, dd.MM.yyyy", calendar));
+
+        // Income or Expense
 
         if (transaction.getType() == Transaction.TransactionType.EXPENSE)
             holder.typeView.setImageResource(R.drawable.ic_expense);
         else
             holder.typeView.setImageResource(R.drawable.ic_income);
+
+        // On click
 
         holder.bind(transaction, new OnItemClickListener() {
             @Override
