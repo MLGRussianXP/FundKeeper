@@ -2,6 +2,7 @@ package dev.dkqz.fundkeeper;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -83,7 +84,9 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
         for (int i = 0; i < categoriesCount; i++) {
             CheckBox cb = new CheckBox(this);
-            cb.setText(Transaction.Category.values()[i].name());
+            cb.setText(Transaction.getReadableName(this, Transaction.Category.values()[i]));
+            cb.setButtonTintList(ColorStateList.valueOf(getResources().getColor(R.color.main, getTheme())));
+
             checkBoxes.add(cb);
 
             if (i % 2 == 0)

@@ -1,5 +1,7 @@
 package models;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DatabaseReference;
@@ -7,6 +9,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import dev.dkqz.fundkeeper.R;
 
 
 public class Transaction implements Serializable {
@@ -118,6 +124,37 @@ public class Transaction implements Serializable {
 
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
+    }
+
+    public static String getReadableName(Context context, Category category) {
+        switch (category) {
+            case FOOD:
+                return context.getString(R.string.category_food);
+            case HOUSE:
+                return context.getString(R.string.category_house);
+            case TRANSPORT:
+                return context.getString(R.string.category_transport);
+            case HEALTH:
+                return context.getString(R.string.category_health);
+            case ENTERTAINMENT:
+                return context.getString(R.string.category_entertainment);
+            case CLOTHES:
+                return context.getString(R.string.category_clothes);
+            case EDUCATION:
+                return context.getString(R.string.category_education);
+            case CONNECTIVITY:
+                return context.getString(R.string.category_connectivity);
+            case TRAVEL:
+                return context.getString(R.string.category_travel);
+            case AUTOMOBILE:
+                return context.getString(R.string.category_automobile);
+            case INVESTMENT:
+                return context.getString(R.string.category_investment);
+            case OTHER:
+                return context.getString(R.string.category_other);
+            default:
+                return "";
+        }
     }
 
     @NonNull
