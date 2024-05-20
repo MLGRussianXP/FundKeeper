@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import models.Transaction;
 
 public class HistoryTransactionsAdapter extends TransactionsAdapter {
-    public static enum Period {
+    public enum Period {
         DAY,
         WEEK,
         MONTH,
