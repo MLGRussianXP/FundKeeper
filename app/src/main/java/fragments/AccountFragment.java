@@ -32,6 +32,7 @@ import adapters.AccountsSpinnerAdapter;
 import adapters.TransactionsAdapter;
 import decorations.DividerTransactionDecoration;
 import dev.dkqz.fundkeeper.CreateEditTransactionActivity;
+import dev.dkqz.fundkeeper.ProfileActivity;
 import dev.dkqz.fundkeeper.R;
 import dev.dkqz.fundkeeper.WelcomeActivity;
 import models.Account;
@@ -52,6 +53,7 @@ public class AccountFragment extends Fragment {
         sharedPreferences = requireContext().getSharedPreferences("app", MODE_PRIVATE);
 
         // Account spinner
+
         accountSpinner = view.findViewById(R.id.spinnerAccount);
 
         ArrayList<Account> accountArray = new ArrayList<>();
@@ -95,6 +97,10 @@ public class AccountFragment extends Fragment {
                 Toast.makeText(getContext(), "Error while loading your \"bank\" accounts", Toast.LENGTH_LONG).show();
             }
         });
+
+        // Profile activity
+
+        view.findViewById(R.id.btnProfile).setOnClickListener(v -> startActivity(new Intent(getContext(), ProfileActivity.class)));
 
         return view;
     }
