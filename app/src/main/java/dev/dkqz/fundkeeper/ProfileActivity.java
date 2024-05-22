@@ -1,6 +1,7 @@
 package dev.dkqz.fundkeeper;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import models.Transaction;
 
 public class ProfileActivity extends AppCompatActivity {
     private final ArrayList<Account> accounts = new ArrayList<>();
+    private int accountsCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +57,20 @@ public class ProfileActivity extends AppCompatActivity {
         AccountsAdapter adapter = new AccountsAdapter(this, accounts);
         recyclerView.setAdapter(adapter);
 
-        Account.accounts.orderByChild("ownerUid").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Account.accounts.orderByChild("ownerUid").equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
 
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 accounts.clear();
+                accountsCount = 0;
+
                 for (DataSnapshot account : snapshot.getChildren()) {
                     Account ac = account.getValue(Account.class);
-                    if (ac != null)
+                    if (ac != null) {
                         accounts.add(ac);
+                        accountsCount++;
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -73,6 +79,17 @@ public class ProfileActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(ProfileActivity.this, "Error while loading your \"bank\" accounts", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        // New account button
+
+        findViewById(R.id.btnNewAccount).setOnClickListener(v -> {
+            if (accountsCount >= 4) {
+                Toast.makeText(ProfileActivity.this, "You can't have more than 4 accounts", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            startActivity(new Intent(this, CreateEditAccountActivity.class));
         });
     }
 
