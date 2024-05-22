@@ -53,10 +53,16 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 0, selectedPosition = 0;
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Account account = ds.getValue(Account.class);
-                    if (account != null)
+                    if (account != null) {
                         accountArray.add(account);
+                        if (account.getKey().equals(WelcomeActivity.accountKey))
+                            selectedPosition = i;
+                        i++;
+                    }
                 }
 
                 if (!accountArray.isEmpty()) {
@@ -64,6 +70,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     Spinner sItems = findViewById(R.id.spinnerAccount);
                     sItems.setAdapter(adapter);
+                    sItems.setSelection(selectedPosition);
                 } else
                     Toast.makeText(CreateEditTransactionActivity.this, "There are no accounts.", Toast.LENGTH_LONG).show();
             }

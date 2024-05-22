@@ -12,11 +12,12 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+import dev.dkqz.fundkeeper.R;
 import models.Account;
 
 public class AccountsSpinnerAdapter extends ArrayAdapter<Account> {
     public AccountsSpinnerAdapter(@NonNull Context context, @NonNull List<Account> objects) {
-        super(context, android.R.layout.simple_spinner_dropdown_item, objects);
+        super(context, R.layout.spinner_item, objects);
     }
 
     @NonNull
@@ -24,9 +25,9 @@ public class AccountsSpinnerAdapter extends ArrayAdapter<Account> {
         Account account = getItem(position);
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(android.R.layout.simple_spinner_item, null, false);
+        View v = inflater.inflate(R.layout.spinner_item, null, false);
 
-        TextView tvName = v.findViewById(android.R.id.text1);
+        TextView tvName = v.findViewById(R.id.text1);
         tvName.setText(account.getName());
 
         return v;

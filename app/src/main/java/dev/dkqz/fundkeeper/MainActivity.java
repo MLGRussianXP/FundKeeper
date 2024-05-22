@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import fragments.AccountFragment;
 import fragments.CalculatorFragment;
 import fragments.ConverterFragment;
 import fragments.HistoryFragment;
@@ -23,6 +24,7 @@ import fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    private final AccountFragment accountFragment = new AccountFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.acFragment, accountFragment).commit();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(this::onItemSelected);

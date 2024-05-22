@@ -52,9 +52,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         calendar.setTimeInMillis(transaction.getDate());
 
         if (calendar.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) && calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
-            holder.timeView.setText(DateFormat.format("Today, HH:mm", calendar));
+            holder.timeView.setText("Today, " + DateFormat.format("HH:mm", calendar));
         else if (calendar.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1 && calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
-            holder.timeView.setText(DateFormat.format("Yesterday, HH:mm", calendar));
+            holder.timeView.setText("Yesterday, " + DateFormat.format("HH:mm", calendar));
         else
             holder.timeView.setText(DateFormat.format("HH:mm, dd.MM.yyyy", calendar));
 
