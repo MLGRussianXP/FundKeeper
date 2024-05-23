@@ -2,7 +2,6 @@ package fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,32 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Objects;
 
 import adapters.AccountsSpinnerAdapter;
-import adapters.TransactionsAdapter;
-import decorations.DividerTransactionDecoration;
-import dev.dkqz.fundkeeper.CreateEditTransactionActivity;
 import dev.dkqz.fundkeeper.ProfileActivity;
 import dev.dkqz.fundkeeper.R;
 import dev.dkqz.fundkeeper.WelcomeActivity;
 import models.Account;
-import models.Transaction;
 
 public class AccountFragment extends Fragment {
     SharedPreferences sharedPreferences;
@@ -75,10 +65,13 @@ public class AccountFragment extends Fragment {
                 }
 
                 if (currentPosition == -1) {
-                    Toast.makeText(getContext(), "You don't have this \"bank\" account. Please, reload", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getContext(), WelcomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    try {
+                        Toast.makeText(getContext(), "You don't have this \"bank\" account. Please, reload", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(), WelcomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                    catch (NullPointerException ignored) { }
                     return;
                 }
 
