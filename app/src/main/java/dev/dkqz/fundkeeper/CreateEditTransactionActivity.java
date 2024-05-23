@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ import models.Transaction;
 
 public class CreateEditTransactionActivity extends AppCompatActivity {
     private Calendar calendar;
+    private Transaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,41 +48,89 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Accounts spinner
-
-        ArrayList<Account> accountArray = new ArrayList<>();
-        Account.accounts.orderByChild("ownerUid").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int i = 0, selectedPosition = 0;
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    Account account = ds.getValue(Account.class);
-                    if (account != null) {
-                        accountArray.add(account);
-                        if (account.getKey().equals(WelcomeActivity.accountKey))
-                            selectedPosition = i;
-                        i++;
+        String extraTransactionKey = getIntent().getStringExtra("transactionKey");
+        if (extraTransactionKey != null) {
+            Transaction.transactions.orderByChild("key").equalTo(extraTransactionKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Transaction tr = ds.getValue(Transaction.class);
+                        if (tr != null) {
+                            transaction = tr;
+                            break;
+                        }
                     }
+                    setupData();
                 }
 
-                if (!accountArray.isEmpty()) {
-                    AccountsSpinnerAdapter adapter = new AccountsSpinnerAdapter(CreateEditTransactionActivity.this, accountArray);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    Spinner sItems = findViewById(R.id.spinnerAccount);
-                    sItems.setAdapter(adapter);
-                    sItems.setSelection(selectedPosition);
-                } else
-                    Toast.makeText(CreateEditTransactionActivity.this, "There are no accounts.", Toast.LENGTH_LONG).show();
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching transaction", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else
+            setupData();
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CreateEditTransactionActivity.this, "Error while loading your \"bank\" accounts", Toast.LENGTH_LONG).show();
-            }
-        });
+    private void setupData() {
+        if (transaction != null) {
+            EditText name = findViewById(R.id.etName);
+            name.setText(transaction.getTitle());
 
+            EditText description = findViewById(R.id.etDescription);
+            description.setText(transaction.getDescription());
+
+            EditText amount = findViewById(R.id.etAmount);
+            amount.setText(String.valueOf(transaction.getAmount()));
+
+            Button createBtn = findViewById(R.id.btnCreateTransaction);
+            createBtn.setText("Edit");
+        }
+
+        // Accounts spinner
+
+        if (transaction == null) {
+            ArrayList<Account> accountArray = new ArrayList<>();
+            Account.accounts.orderByChild("ownerUid").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    int i = 0, selectedPosition = 0;
+
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Account account = ds.getValue(Account.class);
+                        if (account != null) {
+                            accountArray.add(account);
+                            if (account.getKey().equals(WelcomeActivity.accountKey))
+                                selectedPosition = i;
+                            i++;
+                        }
+                    }
+
+                    if (transaction != null)
+                        for (int j = 0; j < accountArray.size(); j++)
+                            if (accountArray.get(j).getKey().equals(transaction.getAccountKey()))
+                                selectedPosition = j;
+
+                    if (!accountArray.isEmpty()) {
+                        AccountsSpinnerAdapter adapter = new AccountsSpinnerAdapter(CreateEditTransactionActivity.this, accountArray);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        Spinner sItems = findViewById(R.id.spinnerAccount);
+                        sItems.setAdapter(adapter);
+                        sItems.setSelection(selectedPosition);
+                    } else
+                        Toast.makeText(CreateEditTransactionActivity.this, "There are no accounts.", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(CreateEditTransactionActivity.this, "Error while loading your \"bank\" accounts", Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            findViewById(R.id.spinnerAccount).setVisibility(View.GONE);
+        }
 
         // Checkboxes layout
 
@@ -93,6 +143,9 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
             CheckBox cb = new CheckBox(this);
             cb.setText(Transaction.getReadableName(this, Transaction.Category.values()[i]));
             cb.setButtonTintList(ColorStateList.valueOf(getResources().getColor(R.color.main, getTheme())));
+
+            if (transaction != null && transaction.getCategories().contains(Transaction.Category.values()[i]))
+                cb.setChecked(true);
 
             checkBoxes.add(cb);
 
@@ -109,9 +162,18 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         EditText etDate = findViewById(R.id.etDate);
         EditText etTime = findViewById(R.id.etTime);
 
+        if (transaction != null) {
+            calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(transaction.getDate());
+            etDate.setText(String.format("%02d-%02d-%d", calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
+            etTime.setText(String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
+        }
+
         btnDatePicker.setOnClickListener(v -> {
-            if (calendar == null)
+            if (calendar == null) {
                 calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+            }
             int mYear = calendar.get(Calendar.YEAR);
             int mMonth = calendar.get(Calendar.MONTH);
             int mDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -128,8 +190,10 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         });
 
         btnTimePicker.setOnClickListener(v -> {
-            if (calendar == null)
+            if (calendar == null) {
                 calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+            }
             int mHour = calendar.get(Calendar.HOUR_OF_DAY);
             int mMinute = calendar.get(Calendar.MINUTE);
 
@@ -145,12 +209,17 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         });
 
         // Create
-
+        
+        final Transaction fTransaction = transaction;
         Button btnCreate = findViewById(R.id.btnCreateTransaction);
         btnCreate.setOnClickListener(v -> {
             Transaction transaction = new Transaction();
-
-            String accountKey = ((Account) ((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItem()).getKey();
+            
+            String accountKey;
+            if (fTransaction != null)
+                accountKey = fTransaction.getAccountKey();
+            else
+                accountKey = ((Account) ((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItem()).getKey();
             transaction.setAccountKey(accountKey);
             transaction.setTitle(((EditText) findViewById(R.id.etName)).getText().toString());
 
@@ -179,21 +248,39 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         Account account = ds.getValue(Account.class);
                         if (account != null) {
-                            long balanceDiff = transaction.getAmount();
-                            if (transaction.getType() == Transaction.TransactionType.EXPENSE)
-                                balanceDiff *= -1;
-                            snapshot.getRef().child(accountKey + "/balance").setValue(account.getBalance() + balanceDiff);
+                            snapshot.getRef().child(accountKey + "/balance").setValue(getNewBalance(account));
 
-                            DatabaseReference push = Transaction.transactions.push();
-                            String transactionKey = push.getKey();
-                            transaction.setKey(transactionKey);
-                            push.setValue(transaction);
+                            if (fTransaction != null) {
+                                Transaction.transactions.child(fTransaction.getKey()).setValue(transaction);
+                            }
+                            else {
+                                DatabaseReference push = Transaction.transactions.push();
+                                String transactionKey = push.getKey();
+                                transaction.setKey(transactionKey);
+                                push.setValue(transaction);
+                            }
 
                             finish();
                             return;
                         }
                     }
                     Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching selected \"bank\" account", Toast.LENGTH_LONG).show();
+                }
+
+                private long getNewBalance(Account account) {
+                    long balance = account.getBalance();
+                    if (fTransaction != null) {
+                        if (fTransaction.getType() == Transaction.TransactionType.EXPENSE)
+                            balance += fTransaction.getAmount();
+                        else
+                            balance -= fTransaction.getAmount();
+                    }
+
+                    if (transaction.getType() == Transaction.TransactionType.EXPENSE)
+                        balance -= transaction.getAmount();
+                    else
+                        balance += transaction.getAmount();
+                    return balance;
                 }
 
                 @Override

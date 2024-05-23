@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import dev.dkqz.fundkeeper.R;
+import dev.dkqz.fundkeeper.TransactionActivity;
 import models.Transaction;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewHolder> {
@@ -70,7 +72,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         holder.bind(transaction, new OnItemClickListener() {
             @Override
             public void onItemClick(Transaction item) {
-                Toast.makeText(holder.itemView.getContext(), transaction.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(holder.itemView.getContext(), TransactionActivity.class);
+                intent.putExtra("transactionKey", item.getKey());
+                holder.itemView.getContext().startActivity(intent);
             }
 
             @Override

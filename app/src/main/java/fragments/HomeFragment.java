@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
         TextView tvBalance = view.findViewById(R.id.tvAmount);
         tvBalance.setText(String.valueOf(balance));
 
-        Account.accounts.orderByChild("key").equalTo(WelcomeActivity.accountKey).addListenerForSingleValueEvent(new ValueEventListener() {
+        Account.accounts.orderByChild("key").equalTo(WelcomeActivity.accountKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

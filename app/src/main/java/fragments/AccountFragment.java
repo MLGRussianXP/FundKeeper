@@ -64,25 +64,24 @@ public class AccountFragment extends Fragment {
                     }
                 }
 
-                if (currentPosition == -1) {
-                    try {
+                try {
+                    if (currentPosition == -1) {
                         Toast.makeText(getContext(), "You don't have this \"bank\" account. Please, reload", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getContext(), WelcomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        return;
                     }
-                    catch (NullPointerException ignored) { }
-                    return;
-                }
 
-                if (!accountArray.isEmpty()) {
-                    AccountsSpinnerAdapter adapter = new AccountsSpinnerAdapter(requireContext(), accountArray);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    accountSpinner.setAdapter(adapter);
-                    accountSpinner.setSelection(currentPosition);
-                    setSpinnerOnClickListener();
-                } else
-                    Toast.makeText(getContext(), "There are no accounts.", Toast.LENGTH_LONG).show();
+                    if (!accountArray.isEmpty()) {
+                        AccountsSpinnerAdapter adapter = new AccountsSpinnerAdapter(requireContext(), accountArray);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        accountSpinner.setAdapter(adapter);
+                        accountSpinner.setSelection(currentPosition);
+                        setSpinnerOnClickListener();
+                    } else
+                        Toast.makeText(getContext(), "There are no accounts.", Toast.LENGTH_LONG).show();
+                } catch (NullPointerException ignored) { }
             }
 
             @Override
