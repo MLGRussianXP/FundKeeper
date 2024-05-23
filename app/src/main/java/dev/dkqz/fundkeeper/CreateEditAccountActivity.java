@@ -1,6 +1,8 @@
 package dev.dkqz.fundkeeper;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +19,7 @@ import models.Transaction;
 
 public class CreateEditAccountActivity extends AppCompatActivity {
     private EditText etName;
+    private Button btnCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +32,32 @@ public class CreateEditAccountActivity extends AppCompatActivity {
             return insets;
         });
 
+        Intent intent = getIntent();
+
         etName = findViewById(R.id.etName);
+        if (intent.getStringExtra("accountName") != null)
+            etName.setText(intent.getStringExtra("accountName"));
+
+        btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        if (!intent.getBooleanExtra("isNew", true))
+            btnCreateAccount.setText("Edit");
 
         // On click
 
         findViewById(R.id.btnCreateAccount).setOnClickListener(v -> {
-            Account account = new Account();
-            account.setName(etName.getText().toString());
-            account.setOwnerUid(FirebaseAuth.getInstance().getUid());
+            if (intent.getBooleanExtra("isNew", true)) {
+                Account account = new Account();
+                account.setName(etName.getText().toString());
+                account.setOwnerUid(FirebaseAuth.getInstance().getUid());
 
-            DatabaseReference push = Account.accounts.push();
-            String accountKey = push.getKey();
-            account.setKey(accountKey);
-            push.setValue(account);
+                DatabaseReference push = Account.accounts.push();
+                String accountKey = push.getKey();
+                account.setKey(accountKey);
+                push.setValue(account);
+            }
+            else if (intent.getStringExtra("accountKey") != null) {
+                Account.accounts.child(intent.getStringExtra("accountKey") + "/name").setValue(etName.getText().toString());
+            }
 
             finish();
         });

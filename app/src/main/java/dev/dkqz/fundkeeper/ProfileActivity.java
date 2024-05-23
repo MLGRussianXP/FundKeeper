@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -24,10 +23,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import adapters.AccountsAdapter;
-import adapters.TransactionsAdapter;
-import decorations.DividerTransactionDecoration;
 import models.Account;
-import models.Transaction;
 
 public class ProfileActivity extends AppCompatActivity {
     private final ArrayList<Account> accounts = new ArrayList<>();

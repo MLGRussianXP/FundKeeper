@@ -57,7 +57,7 @@ public class AccountFragment extends Fragment {
         accountSpinner = view.findViewById(R.id.spinnerAccount);
 
         ArrayList<Account> accountArray = new ArrayList<>();
-        Account.accounts.orderByChild("ownerUid").equalTo(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Account.accounts.orderByChild("ownerUid").equalTo(FirebaseAuth.getInstance().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int i = 0;
