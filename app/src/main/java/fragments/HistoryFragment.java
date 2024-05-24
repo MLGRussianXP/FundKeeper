@@ -1,6 +1,6 @@
 package fragments;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import adapters.HistoryTransactionsAdapter;
-import adapters.TransactionsAdapter;
 import decorations.DividerTransactionDecoration;
 import dev.dkqz.fundkeeper.R;
+import dev.dkqz.fundkeeper.SearchActivity;
 import dev.dkqz.fundkeeper.WelcomeActivity;
 import models.Transaction;
 
@@ -77,6 +77,10 @@ public class HistoryFragment extends Fragment {
         view.findViewById(R.id.rbWeek).setOnClickListener(v -> adapter.setPeriod(HistoryTransactionsAdapter.Period.WEEK));
         view.findViewById(R.id.rbMonth).setOnClickListener(v -> adapter.setPeriod(HistoryTransactionsAdapter.Period.MONTH));
         view.findViewById(R.id.rbYear).setOnClickListener(v -> adapter.setPeriod(HistoryTransactionsAdapter.Period.YEAR));
+
+        // Search button
+
+        view.findViewById(R.id.btnSearch).setOnClickListener(v -> requireContext().startActivity(new Intent(requireContext(), SearchActivity.class)));
 
         return view;
     }
