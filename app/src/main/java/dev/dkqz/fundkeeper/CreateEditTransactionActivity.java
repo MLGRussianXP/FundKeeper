@@ -251,6 +251,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                             snapshot.getRef().child(accountKey + "/balance").setValue(getNewBalance(account));
 
                             if (fTransaction != null) {
+                                transaction.setKey(fTransaction.getKey());
                                 Transaction.transactions.child(fTransaction.getKey()).setValue(transaction);
                             }
                             else {
