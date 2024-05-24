@@ -28,7 +28,7 @@ import adapters.TransactionsAdapter;
 import models.Transaction;
 
 public class SearchActivity extends AppCompatActivity {
-    private ArrayList<Transaction> transactions = new ArrayList<>();
+    private final ArrayList<Transaction> transactions = new ArrayList<>();
     private TransactionsAdapter adapter;
 
     @Override
