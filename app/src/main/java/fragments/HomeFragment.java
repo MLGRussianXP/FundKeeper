@@ -89,7 +89,10 @@ public class HomeFragment extends Fragment {
                     Account account = ds.getValue(Account.class);
                     if (account != null) {
                         balance = account.getBalance();
-                        tvBalance.setText(String.valueOf(balance));
+                        if (balance >= 1e12)
+                            tvBalance.setText("∞");
+                        else
+                            tvBalance.setText(String.valueOf(balance));
                         return;
                     }
                 }
