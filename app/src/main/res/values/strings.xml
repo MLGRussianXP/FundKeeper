@@ -20,10 +20,7 @@
     <string name="exit_confirmation">Are you sure you want to exit?</string>
     <string name="logout">Logout</string>
     <string name="required_field">Required field</string>
-    <plurals name="length_no_more_than">
-        <item quantity="one">Length can&#39;t be more than %1$d character</item>
-        <item quantity="other">Length can&#39;t be more than %1$d characters</item>
-    </plurals>
+    <string name="length_no_more_than">Length can\'t be more than %1$d characters</string>
 
     <string name="name">Name</string>
     <string name="income">Income</string>

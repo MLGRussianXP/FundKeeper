@@ -17,12 +17,7 @@
     <string name="exit_confirmation">Вы уверены, что хотите выйти?</string>
     <string name="logout">Выйти</string>
     <string name="required_field">Обязательное поле</string>
-    <plurals name="length_no_more_than">
-        <item quantity="one">Длина не должна превышать %1$d символ</item>
-        <item quantity="few">Длина не должна превышать %1$d символа</item>
-        <item quantity="many">Длина не должна превышать %1$d символов</item>
-        <item quantity="other">Длина не должна превышать %1$d символов</item>
-    </plurals>
+    <string name="length_no_more_than">Длина не должна превышать %1$d символов</string>
     <string name="name">Имя</string>
     <string name="income">Доход</string>
     <string name="expense">Расход</string>
