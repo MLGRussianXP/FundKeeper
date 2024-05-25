@@ -91,7 +91,7 @@
                 android:layout_marginTop="20dp"
                 android:autofillHints="numeric"
                 android:hint="@string/amount"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 tools:ignore="VisualLintTextFieldSize" />
 
             <TextView
