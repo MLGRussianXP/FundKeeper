@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/lightGray"
+        android:background="#E6E6E6"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/main"
         android:fontFamily="@font/pt_sans_bold"
-        android:text="Add new account"
+        android:text="@string/add_new_account"
         app:icon="@drawable/baseline_add_circle_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +45,12 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:contentDescription="@string/divider"
         app:layout_constraintBottom_toTopOf="@+id/btnLogout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/divider" />
+        app:srcCompat="@drawable/divider"
+        tools:ignore="ImageContrastCheck" />
 
     <Button
         android:id="@+id/btnLogout"
@@ -60,12 +62,13 @@
         android:backgroundTint="@color/lightGray"
         android:fontFamily="@font/pt_sans_bold"
         android:gravity="center_vertical"
-        android:text="Logout"
+        android:text="@string/logout"
         android:textColor="@color/black"
         app:icon="@drawable/baseline_logout_24"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

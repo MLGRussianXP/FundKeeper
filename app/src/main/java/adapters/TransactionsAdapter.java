@@ -54,9 +54,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         calendar.setTimeInMillis(transaction.getDate());
 
         if (calendar.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) && calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
-            holder.timeView.setText("Today, " + DateFormat.format("HH:mm", calendar));
+            holder.timeView.setText(holder.itemView.getContext().getResources().getString(R.string.today_date, DateFormat.format("HH:mm", calendar)));
         else if (calendar.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1 && calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
-            holder.timeView.setText("Yesterday, " + DateFormat.format("HH:mm", calendar));
+            holder.timeView.setText(holder.itemView.getContext().getResources().getString(R.string.yesterday_date, DateFormat.format("HH:mm", calendar)));
         else
             holder.timeView.setText(DateFormat.format("HH:mm, dd.MM.yyyy", calendar));
 
@@ -79,7 +79,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
             @Override
             public boolean onItemLongClick(Transaction item) {
-                Toast.makeText(holder.itemView.getContext(), "Delete " + transaction.getTitle() + "?", Toast.LENGTH_SHORT).show();
+                Toast.makeText(holder.itemView.getContext(), DateFormat.format("HH:mm, dd.MM.yyyy", calendar), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

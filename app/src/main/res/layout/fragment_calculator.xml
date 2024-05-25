@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Калькулятор дохода"
+            android:text="@string/profit_calculator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,10 +24,11 @@
         <EditText
             android:id="@+id/etBuyPrice"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="24dp"
             style="@style/etRegular"
-            android:hint="Цена покупки"
+            android:autofillHints="numeric"
+            android:hint="@string/buying_price"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintStart_toStartOf="@+id/textView"
@@ -36,10 +37,11 @@
         <EditText
             android:id="@+id/etBuyAmount"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
             style="@style/etRegular"
-            android:hint="Количество потраченных средств"
+            android:autofillHints="numeric"
+            android:hint="@string/money_spent"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/etBuyPrice"
             app:layout_constraintStart_toStartOf="@+id/etBuyPrice"
@@ -48,10 +50,11 @@
         <EditText
             android:id="@+id/etSellPrice"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
             style="@style/etRegular"
-            android:hint="Цена продажи"
+            android:autofillHints="numeric"
+            android:hint="@string/selling_price"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/etBuyAmount"
             app:layout_constraintStart_toStartOf="@+id/etBuyAmount"
@@ -62,10 +65,12 @@
             android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/divider"
             android:src="@drawable/divider"
             app:layout_constraintEnd_toEndOf="@+id/etSellPrice"
             app:layout_constraintStart_toStartOf="@+id/etSellPrice"
-            app:layout_constraintTop_toBottomOf="@+id/etSellPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/etSellPrice"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
             android:id="@+id/tvProfit"
@@ -73,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/pt_sans_bold"
-            android:text="Профит: 0"
+            android:text="@string/profit_no_number"
             android:textSize="34sp"
             android:textColor="@color/gray"
             app:layout_constraintEnd_toEndOf="@+id/ivDivider"
@@ -86,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Итоговый баланс: 0"
+            android:text="@string/final_balance_no_number"
             app:layout_constraintEnd_toEndOf="@+id/tvProfit"
             app:layout_constraintStart_toStartOf="@+id/tvProfit"
             app:layout_constraintTop_toBottomOf="@+id/tvProfit" />

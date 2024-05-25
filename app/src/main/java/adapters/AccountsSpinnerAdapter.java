@@ -39,8 +39,9 @@ public class AccountsSpinnerAdapter extends ArrayAdapter<Account> {
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         TextView tvName = (TextView) super.getDropDownView(position, convertView, parent);
-        if (getItem(position) != null)
-            tvName.setText(getItem(position).getName());
+        Account item = getItem(position);
+        if (item != null)
+            tvName.setText(item.getName());
         return tvName;
     }
 }

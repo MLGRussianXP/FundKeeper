@@ -58,7 +58,7 @@ public class TransactionActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.tvDescription)).setText(transaction.getDescription());
 
                 TextView amount = findViewById(R.id.tvAmount);
-                amount.setText(transaction.getAmount() + "₸");
+                amount.setText(getResources().getString(R.string.amount_with_currency, transaction.getAmount()));
                 if (transaction.getType() == Transaction.TransactionType.EXPENSE)
                     amount.setTextColor(getColor(R.color.red));
                 else
@@ -69,7 +69,7 @@ public class TransactionActivity extends AppCompatActivity {
                     if (category != null)
                         categories.add(Transaction.getReadableName(TransactionActivity.this, category));
                 }
-                ((TextView) findViewById(R.id.tvCategories)).setText("Categories: " + String.join(", ", categories));
+                ((TextView) findViewById(R.id.tvCategories)).setText(getResources().getString(R.string.categories_with_list, String.join(", ", categories)));
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(transaction.getDate());
@@ -78,7 +78,7 @@ public class TransactionActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(TransactionActivity.this, "Error loading transaction", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransactionActivity.this, getResources().getString(R.string.error_loading_transactions), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -104,8 +104,8 @@ public class TransactionActivity extends AppCompatActivity {
         findViewById(R.id.btnDelete).setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Delete " + transaction.getTitle() + "?")
-                    .setPositiveButton("Yes", (dialog, which) -> Account.accounts.orderByChild("key").equalTo(transaction.getAccountKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    .setTitle(getResources().getString(R.string.delete, transaction.getTitle()))
+                    .setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> Account.accounts.orderByChild("key").equalTo(transaction.getAccountKey()).addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -126,9 +126,9 @@ public class TransactionActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(TransactionActivity.this, "Error deleting transaction", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TransactionActivity.this, getResources().getString(R.string.error_deleting_transaction), Toast.LENGTH_LONG).show();
                         }
-                    })).setNegativeButton("No", null);
+                    })).setNegativeButton(getResources().getString(R.string.no), null);
             builder.show();
         });
     }

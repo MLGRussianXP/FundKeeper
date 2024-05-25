@@ -87,7 +87,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
 
                 if (firstAccount == null) {
-                    Account account = new Account(userUid, "Счёт", 0);
+                    Account account = new Account(userUid, getResources().getString(R.string.bank_account), 0);
                     DatabaseReference push = Account.accounts.push();
                     accountKey = push.getKey();
                     sharedPreferences.edit().putString("accountKey", accountKey).apply();
@@ -137,9 +137,7 @@ public class WelcomeActivity extends AppCompatActivity {
         } else {
             if (response.getError() != null) {
                 Toast.makeText(
-                        this,
-                        "Sign in failed " + response.getError().getErrorCode()
-                                + ". " + response.getError().getMessage(),
+                        this, getResources().getString(R.string.error_sign_in, response.getError().getErrorCode(), response.getError().getMessage()),
                         Toast.LENGTH_LONG
                 ).show();
             }

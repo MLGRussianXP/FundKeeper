@@ -84,8 +84,8 @@ public class CalculatorFragment extends Fragment {
                 if (afterBalance > 1e12)
                     afterBalanceStr = "∞";
 
-                tvProfit.setText("Профит: " + profitStr);
-                tvAfterBalance.setText("Итоговый баланс: " + afterBalanceStr);
+                tvProfit.setText(getResources().getString(R.string.profit, profitStr));
+                tvAfterBalance.setText(getResources().getString(R.string.final_balance, afterBalanceStr));
             }
         };
 

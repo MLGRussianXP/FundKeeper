@@ -1,11 +1,69 @@
 <resources>
-    <string name="app_name">FundKeeper</string>
+    <string name="app_name" translatable="false">FundKeeper</string>
     <string name="hello_blank_fragment">Hmm?? How did you get here? 😏</string>
     <string name="home">Home</string>
     <string name="history">History</string>
     <string name="converter">Converter</string>
     <string name="calculator">Calculator</string>
 
+    <string name="bank_account">Account</string>
+    <string name="profile">Profile</string>
+    <string name="amount_with_currency" translatable="false">%1$d₸</string>
+    <string name="tenge" translatable="false">₸</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="create">Create</string>
+    <string name="edit">Edit</string>
+    <string name="delete_no_question">Delete</string>
+    <string name="delete">Delete %1$s?</string>
+    <string name="exit">Exit</string>
+    <string name="exit_confirmation">Are you sure you want to exit?</string>
+    <string name="logout">Logout</string>
+
+    <string name="name">Name</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="description">Description</string>
+    <string name="amount">Amount</string>
+    <string name="choose_date">Choose date</string>
+    <string name="choose_time">Choose time</string>
+    <string name="datetime_hint">By default, the transaction will be created with the current time</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="datetime">Datetime</string>
+
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+
+    <string name="add_new_account">Add new account</string>
+    <string name="bank_account_background">Bank account background</string>
+    <string name="for_today">for today</string>
+    <string name="for_today_income">For today income</string>
+    <string name="for_today_expense">For today expense</string>
+    <string name="transactions_history">Transactions history</string>
+    <string name="add_transaction">Add transaction</string>
+
+    <string name="error_sign_in">Sign in failed %1$d. %2$s</string>
+    <string name="error_deleting_transactions">Error deleting transactions</string>
+    <string name="error_deleting_transaction">Error deleting transaction</string>
+    <string name="error_loading_transactions">Error loading transactions</string>
+    <string name="error_loading_bank_accounts">Error loading your bank accounts</string>
+    <string name="error_loading_bank_account">Error loading your bank account</string>
+    <string name="error_loading_selected_bank_account">Error loading selected bank account</string>
+    <string name="error_no_bank_accounts_found">No bank accounts found</string>
+    <string name="error_dont_have_bank_account">You don\'t have this bank account. Please, reload</string>
+    <string name="error_getting_conversion_rate">Error getting conversion rate</string>
+
+    <string name="today_date">Today, %1$s</string>
+    <string name="yesterday_date">Yesterday, %1$s</string>
+
+    <string name="search">Search…</string>
+    <string name="search_title">Search</string>
+    <string name="enter_the_title">Enter the title…</string>
+
+    <string name="categories">Categories</string>
     <string name="category_food">Food &amp; Groceries</string>
     <string name="category_house">Housing &amp; Rent</string>
     <string name="category_transport">Transportation</string>
@@ -18,4 +76,27 @@
     <string name="category_automobile">Automobile Expenses</string>
     <string name="category_investment">Investments &amp; Savings</string>
     <string name="category_other">Miscellaneous</string>
+
+    <string name="convert_from">Convert from</string>
+    <string name="convert_to">Convert to</string>
+    <string name="select_currency">Select currency</string>
+    <string name="amount_to_convert">Amount to convert</string>
+    <string name="conversion_rate">Conversion rate</string>
+    <string name="convert">Convert</string>
+
+    <string name="profit_calculator">Profit calculator</string>
+    <string name="buying_price">Buying price</string>
+    <string name="money_spent">Amount of money spent</string>
+    <string name="selling_price">Selling price</string>
+    <string name="profit_no_number">Profit</string>
+    <string name="profit">Profit: %1$s</string>
+    <string name="final_balance_no_number">Final balance</string>
+    <string name="final_balance">Final balance: %1$s</string>
+
+    <string name="divider">Divider</string>
+    <string name="sadly_empty">It\'s kind of empty here…</string>
+    <string name="delete_account_description">All transactions will be deleted. Are you sure you want to delete %1$s?</string>
+    <string name="error_max_accounts_reached">You can\'t have more than 4 accounts</string>
+    <string name="categories_with_list">Categories: %1$s</string>
+    <string name="convert_cooldown">Please wait 5 seconds before converting again</string>
 </resources>

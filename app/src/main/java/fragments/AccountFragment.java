@@ -66,7 +66,7 @@ public class AccountFragment extends Fragment {
 
                 try {
                     if (currentPosition == -1) {
-                        Toast.makeText(getContext(), "You don't have this \"bank\" account. Please, reload", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getResources().getString(R.string.error_dont_have_bank_account), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getContext(), WelcomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
@@ -80,14 +80,14 @@ public class AccountFragment extends Fragment {
                         accountSpinner.setSelection(currentPosition);
                         setSpinnerOnClickListener();
                     } else
-                        Toast.makeText(getContext(), "There are no accounts.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getResources().getString(R.string.error_no_bank_accounts_found), Toast.LENGTH_LONG).show();
                 } catch (NullPointerException ignored) {
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Error while loading your \"bank\" accounts", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.error_loading_bank_accounts), Toast.LENGTH_LONG).show();
             }
         });
 

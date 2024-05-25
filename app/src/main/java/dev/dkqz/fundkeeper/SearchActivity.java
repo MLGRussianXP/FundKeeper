@@ -66,7 +66,7 @@ public class SearchActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) searchViewMenuItem.getActionView();
 
         if (searchView != null) {
-            searchView.setQueryHint("Enter the title...");
+            searchView.setQueryHint(getResources().getString(R.string.enter_the_title));
 
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(SearchActivity.this, "Error while searching transactions", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_loading_transactions), Toast.LENGTH_LONG).show();
                         }
                     });
                     return true;

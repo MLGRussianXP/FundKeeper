@@ -240,7 +240,7 @@ public class ConverterFragment extends Fragment {
                 Double amount = Double.parseDouble(etAmount.getText().toString());
                 getConversionRate(convertFromValue, convertToValue, amount);
             } catch (Exception e) {
-                Toast.makeText(requireContext(), "Error getting conversion rate", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getResources().getString(R.string.error_getting_conversion_rate), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -249,7 +249,7 @@ public class ConverterFragment extends Fragment {
 
     private void setupDialog(TextView view, Consumer<String> onItemSelected) {
         Dialog dialog = new Dialog(requireContext());
-        dialog.setContentView(R.layout.converter_country_spinner);
+        dialog.setContentView(R.layout.converter_currency_spinner);
         Objects.requireNonNull(dialog.getWindow()).setLayout((int) (width / 1.3), height / 2);
         dialog.show();
 
@@ -284,7 +284,7 @@ public class ConverterFragment extends Fragment {
 
     public void getConversionRate(String convertFrom, String convertTo, Double amount) {
         if (lastConvertedTime > 0 && System.currentTimeMillis() - lastConvertedTime < 5000) {
-            Toast.makeText(requireContext(), "Please wait 5 seconds before converting again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getResources().getString(R.string.convert_cooldown), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -300,9 +300,9 @@ public class ConverterFragment extends Fragment {
 
                 lastConvertedTime = System.currentTimeMillis();
             } catch (Exception e) {
-                Toast.makeText(requireContext(), "Error getting conversion rate", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getResources().getString(R.string.error_getting_conversion_rate), Toast.LENGTH_LONG).show();
             }
-        }, error -> Toast.makeText(requireContext(), "Error getting conversion rate", Toast.LENGTH_SHORT).show());
+        }, error -> Toast.makeText(requireContext(), getResources().getString(R.string.error_getting_conversion_rate), Toast.LENGTH_LONG).show());
 
         queue.add(stringRequest);
     }

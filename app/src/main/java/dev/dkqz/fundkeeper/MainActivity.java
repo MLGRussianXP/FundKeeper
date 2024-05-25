@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
             public void handleOnBackPressed() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Exit")
-                        .setMessage("Are you sure you want to exit?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
+                        .setTitle(getResources().getString(R.string.exit))
+                        .setMessage(getResources().getString(R.string.exit_confirmation))
+                        .setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
                             moveTaskToBack(true);
                             Process.killProcess(Process.myPid());
                             System.exit(1);
-                        }).setNegativeButton("No", null);
+                        }).setNegativeButton(getResources().getString(R.string.no), null);
                 builder.show();
             }
         });

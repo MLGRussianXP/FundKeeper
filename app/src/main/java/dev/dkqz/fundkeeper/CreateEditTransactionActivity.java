@@ -1,5 +1,6 @@
 package dev.dkqz.fundkeeper;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.res.ColorStateList;
@@ -67,13 +68,14 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching transaction", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateEditTransactionActivity.this, getResources().getString(R.string.error_loading_transactions), Toast.LENGTH_LONG).show();
                 }
             });
         } else
             setupData();
     }
 
+    @SuppressLint("DefaultLocale")
     private void setupData() {
         if (transaction != null) {
             EditText name = findViewById(R.id.etName);
@@ -86,7 +88,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
             amount.setText(String.valueOf(transaction.getAmount()));
 
             Button createBtn = findViewById(R.id.btnCreateTransaction);
-            createBtn.setText("Edit");
+            createBtn.setText(getResources().getString(R.string.edit));
         }
 
         // Accounts spinner
@@ -121,12 +123,12 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                         sItems.setAdapter(adapter);
                         sItems.setSelection(selectedPosition);
                     } else
-                        Toast.makeText(CreateEditTransactionActivity.this, "There are no accounts.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateEditTransactionActivity.this, getResources().getString(R.string.error_no_bank_accounts_found), Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(CreateEditTransactionActivity.this, "Error while loading your \"bank\" accounts", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateEditTransactionActivity.this, getResources().getString(R.string.error_loading_bank_accounts), Toast.LENGTH_LONG).show();
                 }
             });
         } else {
@@ -265,7 +267,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                             return;
                         }
                     }
-                    Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching selected \"bank\" account", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateEditTransactionActivity.this, getResources().getString(R.string.error_loading_selected_bank_account), Toast.LENGTH_LONG).show();
                 }
 
                 private long getNewBalance(Account account) {
@@ -286,7 +288,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching selected \"bank\" account", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateEditTransactionActivity.this, getResources().getString(R.string.error_loading_selected_bank_account), Toast.LENGTH_LONG).show();
                 }
             });
         });

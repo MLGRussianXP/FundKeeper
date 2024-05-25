@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Error loading your transactions", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.error_loading_transactions), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -93,12 +93,12 @@ public class HomeFragment extends Fragment {
                         return;
                     }
                 }
-                Toast.makeText(getContext(), "Error fetching your \"bank\" account", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.error_loading_bank_account), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Error fetching your \"bank\" account", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.error_loading_bank_account), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Error fetching transactions", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.error_loading_transactions), Toast.LENGTH_LONG).show();
             }
         });
 

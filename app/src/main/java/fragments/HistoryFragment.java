@@ -67,7 +67,7 @@ public class HistoryFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Error loading your transactions", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.error_loading_transactions), Toast.LENGTH_LONG).show();
             }
         });
 

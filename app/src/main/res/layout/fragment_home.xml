@@ -15,6 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="136dp"
             android:layout_margin="16dp"
+            android:contentDescription="@string/bank_account_background"
             android:src="@drawable/round_rectangle_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -28,9 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:text="12345"
+            android:text="0"
             app:layout_constraintStart_toStartOf="@+id/ivAccountBackground"
-            app:layout_constraintTop_toTopOf="@+id/ivAccountBackground" />
+            app:layout_constraintTop_toTopOf="@+id/ivAccountBackground"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tvCurrency"
@@ -38,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="₸"
+            android:text="@string/tenge"
             app:layout_constraintBottom_toBottomOf="@+id/tvAmount"
             app:layout_constraintStart_toEndOf="@+id/tvAmount"
             app:layout_constraintTop_toTopOf="@+id/tvAmount" />
@@ -50,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="@font/pt_sans"
-            android:text="за сегодня"
+            android:text="@string/for_today"
             app:layout_constraintStart_toStartOf="@+id/tvAmount"
             app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
 
@@ -60,9 +62,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/for_today_income"
             android:src="@drawable/ic_income"
             app:layout_constraintStart_toStartOf="@+id/tvToday"
-            app:layout_constraintTop_toBottomOf="@+id/tvToday" />
+            app:layout_constraintTop_toBottomOf="@+id/tvToday"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
             android:id="@+id/tvIncome"
@@ -70,10 +74,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="123"
+            android:text="0"
             app:layout_constraintBottom_toBottomOf="@+id/ivIncome"
             app:layout_constraintStart_toEndOf="@+id/ivIncome"
-            app:layout_constraintTop_toTopOf="@+id/ivIncome" />
+            app:layout_constraintTop_toTopOf="@+id/ivIncome"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <TextView
             android:id="@+id/tvIncomeCurrency"
@@ -81,20 +86,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="₸"
+            android:text="@string/tenge"
             app:layout_constraintBottom_toBottomOf="@+id/tvIncome"
             app:layout_constraintStart_toEndOf="@+id/tvIncome"
-            app:layout_constraintTop_toTopOf="@+id/tvIncome" />
+            app:layout_constraintTop_toTopOf="@+id/tvIncome"
+            tools:ignore="TextContrastCheck" />
 
         <ImageView
             android:id="@+id/ivExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:contentDescription="@string/for_today_expense"
             android:src="@drawable/ic_expense"
             app:layout_constraintBottom_toBottomOf="@+id/tvExpense"
             app:layout_constraintEnd_toStartOf="@+id/tvExpense"
-            app:layout_constraintTop_toTopOf="@+id/tvExpense" />
+            app:layout_constraintTop_toTopOf="@+id/tvExpense"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
             android:id="@+id/tvExpense"
@@ -102,10 +110,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
-            android:text="123"
+            android:text="0"
             app:layout_constraintBottom_toBottomOf="@+id/tvExpenseCurrency"
             app:layout_constraintEnd_toStartOf="@+id/tvExpenseCurrency"
-            app:layout_constraintTop_toTopOf="@+id/tvExpenseCurrency" />
+            app:layout_constraintTop_toTopOf="@+id/tvExpenseCurrency"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <TextView
             android:id="@+id/tvExpenseCurrency"
@@ -113,10 +122,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="₸"
+            android:text="@string/tenge"
             app:layout_constraintBottom_toBottomOf="@+id/tvIncomeCurrency"
             app:layout_constraintEnd_toEndOf="@+id/ivAccountBackground"
-            app:layout_constraintTop_toTopOf="@+id/tvIncomeCurrency" />
+            app:layout_constraintTop_toTopOf="@+id/tvIncomeCurrency"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/tvHistory"
@@ -125,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="История транзакций"
+            android:text="@string/transactions_history"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivAccountBackground" />
 
@@ -136,7 +146,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            android:contentDescription="Добавить транзакцию"
+            android:contentDescription="@string/add_transaction"
             android:focusable="true"
             android:src="@drawable/ic_add"
             app:backgroundTint="@color/main"

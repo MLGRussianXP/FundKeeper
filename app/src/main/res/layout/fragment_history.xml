@@ -32,9 +32,10 @@
                 android:gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="День"
+                android:text="@string/day"
                 android:textColor="@drawable/radio_flat_text_selector"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             <RadioButton
                 android:id="@+id/rbWeek"
@@ -46,9 +47,10 @@
                 android:gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="Неделя"
+                android:text="@string/week"
                 android:textColor="@drawable/radio_flat_text_selector"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <RadioButton
                 android:id="@+id/rbMonth"
@@ -60,9 +62,10 @@
                 android:gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="Месяц"
+                android:text="@string/month"
                 android:textColor="@drawable/radio_flat_text_selector"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <RadioButton
                 android:id="@+id/rbYear"
@@ -74,9 +77,10 @@
                 android:gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="Год"
+                android:text="@string/year"
                 android:textColor="@drawable/radio_flat_text_selector"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </RadioGroup>
 
@@ -87,7 +91,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            android:contentDescription="Искать транзакции"
+            android:contentDescription="@string/search"
             android:focusable="true"
             android:src="@drawable/ic_search"
             app:backgroundTint="@color/main"
@@ -111,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Как-то здесь пусто..."
+            android:text="@string/sadly_empty"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

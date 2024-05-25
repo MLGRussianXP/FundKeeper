@@ -69,9 +69,9 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
             public void onDeleteClick(Account item) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext())
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Delete " + account.getName() + "?")
-                        .setMessage("All transactions will be deleted. Are you sure you want to delete " + account.getName() + "?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
+                        .setTitle(holder.itemView.getContext().getResources().getString(R.string.delete, item.getName()))
+                        .setMessage(holder.itemView.getContext().getResources().getString(R.string.delete_account_description, item.getName()))
+                        .setPositiveButton(holder.itemView.getContext().getResources().getString(R.string.yes), (dialog, which) -> {
                             Transaction.transactions.orderByChild("accountKey").equalTo(account.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
 
                                 @Override
@@ -82,13 +82,13 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(holder.itemView.getContext(), "Error deleting transactions", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(holder.itemView.getContext(), holder.itemView.getContext().getResources().getString(R.string.error_deleting_transactions), Toast.LENGTH_LONG).show();
                                 }
                             });
 
                             Account.accounts.child(account.getKey()).removeValue();
 
-                        }).setNegativeButton("No", null);
+                        }).setNegativeButton(holder.itemView.getContext().getResources().getString(R.string.no), null);
                 builder.show();
             }
         });

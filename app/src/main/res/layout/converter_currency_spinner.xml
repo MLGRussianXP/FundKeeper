@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:ignore="VisualLintBounds">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/blackRegularH5"
-        android:text="Select country"/>
+        android:text="@string/select_currency"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etSearch"
         style="@style/etRegular"
-        android:hint="search..."
+        android:autofillHints="currency code"
+        android:hint="@string/search"
+        android:inputType="text"
         android:padding="12dp"
         android:maxLines="1"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <ListView
         android:layout_width="match_parent"

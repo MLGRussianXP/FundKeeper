@@ -38,7 +38,7 @@ public class CreateEditAccountActivity extends AppCompatActivity {
 
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         if (!intent.getBooleanExtra("isNew", true))
-            btnCreateAccount.setText("Edit");
+            btnCreateAccount.setText(getResources().getString(R.string.edit));
 
         // On click
 

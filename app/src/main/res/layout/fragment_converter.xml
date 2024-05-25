@@ -45,14 +45,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1.0"
-                        android:text="Convert from" />
+                        android:text="@string/convert_from" />
 
                     <TextView
                         style="@style/blackRegularP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
-                        android:text="Convert to" />
+                        android:text="@string/convert_to" />
 
                 </LinearLayout>
 
@@ -68,7 +68,7 @@
                         android:layout_marginStart="12dp"
                         android:layout_weight="1.0"
                         android:background="@android:drawable/editbox_background"
-                        android:hint="Select Country"
+                        android:hint="@string/select_currency"
                         android:text=""
                         android:textSize="14sp"
                         app:drawableEndCompat="@drawable/baseline_arrow_drop_down_24"
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
                         android:background="@android:drawable/editbox_background"
-                        android:hint="Select Country"
+                        android:hint="@string/select_currency"
                         android:text=""
                         android:textSize="14sp"
                         app:drawableEndCompat="@drawable/baseline_arrow_drop_down_24"
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1.0"
-                        android:text="Amount to convert" />
+                        android:text="@string/amount_to_convert" />
 
                     <TextView
                         style="@style/blackRegularP"
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
                         android:gravity="center"
-                        android:text="Conversion rate" />
+                        android:text="@string/conversion_rate" />
 
                 </LinearLayout>
 
@@ -131,11 +131,14 @@
                         android:id="@+id/etAmount"
                         style="@style/etRegular"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1.0"
+                        android:hint="@string/amount"
+                        android:autofillHints="numeric"
                         android:inputType="number"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        tools:ignore="VisualLintTextFieldSize" />
 
                     <TextView
                         android:id="@+id/tvResult"
@@ -161,7 +164,8 @@
                     android:backgroundTint="@color/main"
                     android:fontFamily="@font/pt_sans_bold"
                     android:gravity="center"
-                    android:text="Convert" />
+                    android:text="@string/convert"
+                    tools:ignore="VisualLintButtonSize" />
 
             </RelativeLayout>
 

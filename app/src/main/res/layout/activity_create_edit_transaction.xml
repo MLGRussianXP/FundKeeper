@@ -8,7 +8,6 @@
     tools:context=".CreateEditTransactionActivity">
 
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="12dp"
@@ -27,17 +26,19 @@
             <Spinner
                 android:id="@+id/spinnerAccount"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="8dp" />
 
             <EditText
                 android:id="@+id/etName"
                 style="@style/etRegular"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="20dp"
-                android:hint="Имя"
-                android:inputType="text" />
+                android:autofillHints="string"
+                android:hint="@string/name"
+                android:inputType="text"
+                tools:ignore="VisualLintTextFieldSize" />
 
             <RadioGroup
                 android:id="@+id/rgType"
@@ -54,7 +55,8 @@
                     android:layout_weight="1"
                     android:buttonTint="@color/main"
                     android:checked="true"
-                    android:text="Доход" />
+                    android:text="@string/income"
+                    tools:ignore="VisualLintButtonSize" />
 
                 <RadioButton
                     android:id="@+id/rbExpense"
@@ -62,7 +64,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@color/main"
-                    android:text="Расход" />
+                    android:text="@string/expense"
+                    tools:ignore="VisualLintButtonSize" />
             </RadioGroup>
 
             <EditText
@@ -71,20 +74,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:autofillHints="plain text"
                 android:gravity="top"
-                android:hint="Описание"
+                android:hint="@string/description"
                 android:inputType="textMultiLine"
                 android:lines="4"
-                android:maxLines="4" />
+                android:maxLines="4"
+                tools:ignore="VisualLintTextFieldSize" />
 
             <EditText
                 android:id="@+id/etAmount"
                 style="@style/etRegular"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="20dp"
-                android:hint="Сумма"
-                android:inputType="numberDecimal" />
+                android:autofillHints="numeric"
+                android:hint="@string/amount"
+                android:inputType="numberDecimal"
+                tools:ignore="VisualLintTextFieldSize" />
 
             <TextView
                 android:id="@+id/tvCategories"
@@ -94,7 +101,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="4dp"
                 android:gravity="center"
-                android:text="Категории" />
+                android:text="@string/categories" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,8 +132,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_weight="1"
-                android:contentDescription="Divider"
-                app:srcCompat="@drawable/divider" />
+                android:contentDescription="@string/divider"
+                app:srcCompat="@drawable/divider"
+                tools:ignore="ImageContrastCheck" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -139,10 +147,12 @@
                     android:id="@+id/etDate"
                     style="@style/etRegular"
                     android:layout_width="128dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginEnd="8dp"
-                    android:editable="false"
-                    android:inputType="datetime|date" />
+                    android:autofillHints="date"
+                    android:clickable="false"
+                    android:inputType="datetime|date"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <Button
                     android:id="@+id/btnDate"
@@ -150,23 +160,26 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/main"
                     android:fontFamily="@font/pt_sans_bold"
-                    android:text="Выбрать дату" />
+                    android:text="@string/choose_date" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/etTime"
                     style="@style/etRegular"
                     android:layout_width="128dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginEnd="8dp"
-                    android:editable="false"
-                    android:inputType="datetime|time" />
+                    android:autofillHints="time"
+                    android:clickable="false"
+                    android:inputType="datetime|time"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <Button
                     android:id="@+id/btnTime"
@@ -174,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/main"
                     android:fontFamily="@font/pt_sans_bold"
-                    android:text="Выбрать время" />
+                    android:text="@string/choose_time" />
 
             </LinearLayout>
 
@@ -185,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
-                android:text="По умолчанию, транзакция будет создана с текущим временем" />
+                android:text="@string/datetime_hint" />
 
         </LinearLayout>
     </ScrollView>
@@ -197,7 +210,7 @@
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/main"
         android:fontFamily="@font/pt_sans_bold"
-        android:text="Создать"
+        android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

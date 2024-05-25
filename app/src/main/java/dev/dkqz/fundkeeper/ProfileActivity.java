@@ -75,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Error while loading your \"bank\" accounts", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, getResources().getString(R.string.error_loading_bank_accounts), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -83,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         findViewById(R.id.btnNewAccount).setOnClickListener(v -> {
             if (accountsCount >= 4) {
-                Toast.makeText(ProfileActivity.this, "You can't have more than 4 accounts", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivity.this, getResources().getString(R.string.error_max_accounts_reached), Toast.LENGTH_LONG).show();
                 return;
             }
 
