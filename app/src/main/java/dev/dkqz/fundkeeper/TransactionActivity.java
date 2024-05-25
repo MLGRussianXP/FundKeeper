@@ -67,7 +67,7 @@ public class TransactionActivity extends AppCompatActivity {
                 ArrayList<String> categories = new ArrayList<>();
                 for (Transaction.Category category : transaction.getCategories()) {
                     if (category != null)
-                        categories.add(category.name());
+                        categories.add(Transaction.getReadableName(TransactionActivity.this, category));
                 }
                 ((TextView) findViewById(R.id.tvCategories)).setText("Categories: " + String.join(", ", categories));
 
