@@ -15,11 +15,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import models.Account;
-import models.Transaction;
 
 public class CreateEditAccountActivity extends AppCompatActivity {
     private EditText etName;
-    private Button btnCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class CreateEditAccountActivity extends AppCompatActivity {
         if (intent.getStringExtra("accountName") != null)
             etName.setText(intent.getStringExtra("accountName"));
 
-        btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
         if (!intent.getBooleanExtra("isNew", true))
             btnCreateAccount.setText("Edit");
 
@@ -54,8 +52,7 @@ public class CreateEditAccountActivity extends AppCompatActivity {
                 String accountKey = push.getKey();
                 account.setKey(accountKey);
                 push.setValue(account);
-            }
-            else if (intent.getStringExtra("accountKey") != null) {
+            } else if (intent.getStringExtra("accountKey") != null) {
                 Account.accounts.child(intent.getStringExtra("accountKey") + "/name").setValue(etName.getText().toString());
             }
 

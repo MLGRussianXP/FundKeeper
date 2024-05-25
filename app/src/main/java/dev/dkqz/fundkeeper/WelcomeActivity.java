@@ -76,7 +76,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     Account sp_account = ds.getValue(Account.class);
 
                     if (sp_account != null) {
-                        firstAccount = sp_account;
+                        if (firstAccount == null)
+                            firstAccount = sp_account;
+
                         if (sp_account.getKey().equals(accountKey)) {
                             startActivity(intent);
                             return;
@@ -92,8 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     account.setKey(accountKey);
                     push.setValue(account);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     accountKey = firstAccount.getKey();
                     sharedPreferences.edit().putString("accountKey", accountKey).apply();
                     startActivity(intent);

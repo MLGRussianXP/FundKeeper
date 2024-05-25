@@ -1,7 +1,6 @@
 package dev.dkqz.fundkeeper;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,8 +45,10 @@ public class SearchActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         // Accounts list
 
@@ -64,41 +65,43 @@ public class SearchActivity extends AppCompatActivity {
         MenuItem searchViewMenuItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchViewMenuItem.getActionView();
 
-        searchView.setQueryHint("Enter the title...");
+        if (searchView != null) {
+            searchView.setQueryHint("Enter the title...");
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                Transaction.transactions.orderByChild("accountKey").equalTo(WelcomeActivity.accountKey).addListenerForSingleValueEvent(new ValueEventListener() {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    Transaction.transactions.orderByChild("accountKey").equalTo(WelcomeActivity.accountKey).addListenerForSingleValueEvent(new ValueEventListener() {
 
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        transactions.clear();
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            transactions.clear();
 
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            Transaction transaction = ds.getValue(Transaction.class);
-                            if (transaction != null)
-                                if (transaction.getTitle().toLowerCase().contains(s.toLowerCase()))
-                                    transactions.add(transaction);
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                Transaction transaction = ds.getValue(Transaction.class);
+                                if (transaction != null)
+                                    if (transaction.getTitle().toLowerCase().contains(s.toLowerCase()))
+                                        transactions.add(transaction);
+                            }
+
+                            adapter.notifyDataSetChanged();
                         }
 
-                        adapter.notifyDataSetChanged();
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(SearchActivity.this, "Error while searching transactions", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    return true;
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(SearchActivity.this, "Error while searching transactions", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    return false;
+                }
+            });
+        }
 
         return true;
     }

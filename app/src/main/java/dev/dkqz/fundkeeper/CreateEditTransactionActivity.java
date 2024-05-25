@@ -50,6 +50,8 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
 
         String extraTransactionKey = getIntent().getStringExtra("transactionKey");
         if (extraTransactionKey != null) {
+            // If we have extra transaction key, we are editing
+
             Transaction.transactions.orderByChild("key").equalTo(extraTransactionKey).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,8 +70,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                     Toast.makeText(CreateEditTransactionActivity.this, "Error while fetching transaction", Toast.LENGTH_LONG).show();
                 }
             });
-        }
-        else
+        } else
             setupData();
     }
 
@@ -209,12 +210,12 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         });
 
         // Create
-        
+
         final Transaction fTransaction = transaction;
         Button btnCreate = findViewById(R.id.btnCreateTransaction);
         btnCreate.setOnClickListener(v -> {
             Transaction transaction = new Transaction();
-            
+
             String accountKey;
             if (fTransaction != null)
                 accountKey = fTransaction.getAccountKey();
@@ -253,8 +254,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
                             if (fTransaction != null) {
                                 transaction.setKey(fTransaction.getKey());
                                 Transaction.transactions.child(fTransaction.getKey()).setValue(transaction);
-                            }
-                            else {
+                            } else {
                                 DatabaseReference push = Transaction.transactions.push();
                                 String transactionKey = push.getKey();
                                 transaction.setKey(transactionKey);

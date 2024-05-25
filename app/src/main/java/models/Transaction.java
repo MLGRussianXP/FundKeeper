@@ -9,8 +9,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import dev.dkqz.fundkeeper.R;
 

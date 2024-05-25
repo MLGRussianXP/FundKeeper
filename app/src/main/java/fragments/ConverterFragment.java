@@ -261,7 +261,8 @@ public class ConverterFragment extends Fragment {
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -269,7 +270,8 @@ public class ConverterFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) { }
+            public void afterTextChanged(Editable editable) {
+            }
         });
 
         listView.setOnItemClickListener((adapterView, view1, i, l) -> {
@@ -297,8 +299,7 @@ public class ConverterFragment extends Fragment {
                 tvResult.setText(conversionValue);
 
                 lastConvertedTime = System.currentTimeMillis();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Toast.makeText(requireContext(), "Error getting conversion rate", Toast.LENGTH_SHORT).show();
             }
         }, error -> Toast.makeText(requireContext(), "Error getting conversion rate", Toast.LENGTH_SHORT).show());

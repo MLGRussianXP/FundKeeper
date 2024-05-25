@@ -4,7 +4,6 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Process;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import dev.dkqz.fundkeeper.CreateEditAccountActivity;
-import dev.dkqz.fundkeeper.MainActivity;
 import dev.dkqz.fundkeeper.R;
-import dev.dkqz.fundkeeper.WelcomeActivity;
 import models.Account;
 import models.Transaction;
 
@@ -40,6 +37,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
 
     public interface OnItemClickListener {
         void onEditClick(Account item);
+
         void onDeleteClick(Account item);
     }
 

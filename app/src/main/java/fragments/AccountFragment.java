@@ -81,7 +81,8 @@ public class AccountFragment extends Fragment {
                         setSpinnerOnClickListener();
                     } else
                         Toast.makeText(getContext(), "There are no accounts.", Toast.LENGTH_LONG).show();
-                } catch (NullPointerException ignored) { }
+                } catch (NullPointerException ignored) {
+                }
             }
 
             @Override

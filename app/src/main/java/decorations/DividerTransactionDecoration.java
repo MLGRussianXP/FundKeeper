@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import adapters.TransactionsAdapter;
@@ -21,10 +20,6 @@ public class DividerTransactionDecoration extends RecyclerView.ItemDecoration {
         final TypedArray styledAttributes = context.obtainStyledAttributes(ATTRS);
         divider = styledAttributes.getDrawable(0);
         styledAttributes.recycle();
-    }
-
-    public DividerTransactionDecoration(Context context, int resId) {
-        divider = ContextCompat.getDrawable(context, resId);
     }
 
     @Override

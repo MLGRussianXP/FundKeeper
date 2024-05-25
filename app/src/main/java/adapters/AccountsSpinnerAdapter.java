@@ -1,5 +1,6 @@
 package adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +26,12 @@ public class AccountsSpinnerAdapter extends ArrayAdapter<Account> {
         Account account = getItem(position);
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.spinner_item, null, false);
+        @SuppressLint("ViewHolder") View v = inflater.inflate(R.layout.spinner_item, parent, false);
 
-        TextView tvName = v.findViewById(R.id.text1);
-        tvName.setText(account.getName());
+        if (account != null) {
+            TextView tvName = v.findViewById(R.id.text1);
+            tvName.setText(account.getName());
+        }
 
         return v;
     }
@@ -36,7 +39,8 @@ public class AccountsSpinnerAdapter extends ArrayAdapter<Account> {
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         TextView tvName = (TextView) super.getDropDownView(position, convertView, parent);
-        tvName.setText(getItem(position).getName());
+        if (getItem(position) != null)
+            tvName.setText(getItem(position).getName());
         return tvName;
     }
 }
