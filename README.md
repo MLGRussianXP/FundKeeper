@@ -7,7 +7,7 @@
 Это мой проект. Приложение для отслеживания доходов и расходов.
 
 В проекте, обратите внимание на `google-services.json` и `apikey.properties`. Эти файлы являются необходимыми для работы приложения.
-При желании, вы можете изменить их содержимое.
+При желании, вы можете изменить их содержимое (они уже есть в приложении, не беспокойтесь).
 
 О том как это сделать, ниже, в уже более разработческом стиле)
 
@@ -20,7 +20,7 @@ git clone https://github.com/MLGRussianXP/FundKeeper
 
 Now, open it in Android Studio.
 
-**Setup the Firebase**. Create a new project in Firebase Console and enable `Realtime Database` and `Authentications` apps.
+**Setup the Firebase**. Create a new project in Firebase Console and enable `Realtime Database` and `Authentication` apps.
 In Authentication app, open Settings tab and:
 - Enable **only** `Email/Password` sign-in method.
 - Disable `Email enumeration protection` in User actions.
