@@ -44,8 +44,8 @@ public class Transaction implements Serializable {
     private long date = 0;
     private ArrayList<Category> categories = new ArrayList<>();
 
-    public static FirebaseDatabase db = FirebaseDatabase.getInstance();
-    public static DatabaseReference transactions = db.getReference().child("Transactions");
+    public static final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    public static final DatabaseReference transactions = db.getReference().child("Transactions");
 
     public Transaction(String ownerUid, String title, TransactionType type, String description, long amount, long date, ArrayList<Category> categories) {
         this.accountKey = ownerUid;

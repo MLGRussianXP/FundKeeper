@@ -28,7 +28,7 @@ import models.Transaction;
 
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
     private final LayoutInflater inflater;
-    List<Account> accounts;
+    private final List<Account> accounts;
 
     public AccountsAdapter(Context context, List<Account> accounts) {
         this.accounts = accounts;

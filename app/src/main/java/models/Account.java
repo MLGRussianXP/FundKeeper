@@ -12,8 +12,8 @@ public class Account implements Serializable {
     private String name = "";
     private long balance = 0;
 
-    public static FirebaseDatabase db = FirebaseDatabase.getInstance();
-    public static DatabaseReference accounts = db.getReference().child("Accounts");
+    public static final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    public static final DatabaseReference accounts = db.getReference().child("Accounts");
 
     public Account(String ownerUid, String name, long balance) {
         this.ownerUid = ownerUid;
