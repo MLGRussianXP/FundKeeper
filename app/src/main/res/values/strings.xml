@@ -18,6 +18,9 @@
     <string name="delete">Delete %1$s?</string>
     <string name="exit">Exit</string>
     <string name="exit_confirmation">Are you sure you want to exit?</string>
+    <string name="login">Login</string>
+    <string name="use_fingerprint">Use your fingerprint to login</string>
+    <string name="cancel">Cancel</string>
     <string name="logout">Logout</string>
     <string name="required_field">Required field</string>
     <string name="length_no_more_than">Length can\'t be more than %1$d characters</string>

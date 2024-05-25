@@ -9,6 +9,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Executor;
 
 import models.Account;
 
@@ -80,7 +83,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             firstAccount = sp_account;
 
                         if (sp_account.getKey().equals(accountKey)) {
-                            startActivity(intent);
+                            biometricPrompt(intent);
                             return;
                         }
                     }
@@ -93,12 +96,12 @@ public class WelcomeActivity extends AppCompatActivity {
                     sharedPreferences.edit().putString("accountKey", accountKey).apply();
                     account.setKey(accountKey);
                     push.setValue(account);
-                    startActivity(intent);
                 } else {
                     accountKey = firstAccount.getKey();
                     sharedPreferences.edit().putString("accountKey", accountKey).apply();
-                    startActivity(intent);
                 }
+
+                biometricPrompt(intent);
             }
 
             @Override
@@ -106,6 +109,37 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void biometricPrompt(Intent intent) {
+        Executor executor = ContextCompat.getMainExecutor(WelcomeActivity.this);
+        final BiometricPrompt biometricPrompt = new BiometricPrompt(WelcomeActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+
+                if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON || errorCode == BiometricPrompt.ERROR_CANCELED || errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
+                    finish();
+                    return;
+                }
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                startActivity(intent);
+            }
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                finish();
+            }
+        });
+
+        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle(getResources().getString(R.string.login))
+                .setDescription(getResources().getString(R.string.use_fingerprint)).setNegativeButtonText(getResources().getString(R.string.cancel)).build();
+        biometricPrompt.authenticate(promptInfo);
     }
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(

@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.play.services.auth.v2030)
     implementation(libs.work.runtime)
     implementation(libs.volley)
+    implementation(libs.biometric)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

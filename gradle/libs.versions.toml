@@ -16,6 +16,7 @@ firebaseAuth = "23.0.0"
 playServicesAuthVersion = "20.3.0"
 workRuntime = "2.9.0"
 volley = "1.2.1"
+biometric = "1.1.0"
 
 [libraries]
 firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
@@ -32,6 +33,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 play-services-auth-v2030 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
+biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
