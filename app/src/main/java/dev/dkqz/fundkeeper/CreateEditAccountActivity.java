@@ -45,7 +45,18 @@ public class CreateEditAccountActivity extends AppCompatActivity {
         findViewById(R.id.btnCreateAccount).setOnClickListener(v -> {
             if (intent.getBooleanExtra("isNew", true)) {
                 Account account = new Account();
-                account.setName(etName.getText().toString());
+
+                String name = etName.getText().toString();
+                if (name.isEmpty()) {
+                    etName.setError(getResources().getString(R.string.required_field));
+                    return;
+                }
+                if (name.length() > 20) {
+                    etName.setError(getResources().getString(R.string.length_no_more_than, 20));
+                    return;
+                }
+
+                account.setName(name);
                 account.setOwnerUid(FirebaseAuth.getInstance().getUid());
 
                 DatabaseReference push = Account.accounts.push();

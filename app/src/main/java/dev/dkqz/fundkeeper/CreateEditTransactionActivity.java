@@ -216,6 +216,7 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
         final Transaction fTransaction = transaction;
         Button btnCreate = findViewById(R.id.btnCreateTransaction);
         btnCreate.setOnClickListener(v -> {
+            // Transaction initialization
             Transaction transaction = new Transaction();
 
             String accountKey;
@@ -224,14 +225,37 @@ public class CreateEditTransactionActivity extends AppCompatActivity {
             else
                 accountKey = ((Account) ((Spinner) findViewById(R.id.spinnerAccount)).getSelectedItem()).getKey();
             transaction.setAccountKey(accountKey);
-            transaction.setTitle(((EditText) findViewById(R.id.etName)).getText().toString());
 
+            // Title
+
+            EditText etTitle = findViewById(R.id.etName);
+            String title = etTitle.getText().toString();
+            if (title.isEmpty()) {
+                etTitle.setError(getResources().getString(R.string.required_field));
+                return;
+            }
+            if (title.length() > 128) {
+                etTitle.setError(getResources().getString(R.string.length_no_more_than, 128));
+                return;
+            }
+            transaction.setTitle(title);
+
+            // Type
             RadioGroup rg = findViewById(R.id.rgType);
             transaction.setType(rg.getCheckedRadioButtonId() == R.id.rbIncome ? Transaction.TransactionType.INCOME : Transaction.TransactionType.EXPENSE);
 
+            // Description
             transaction.setDescription(((EditText) findViewById(R.id.etDescription)).getText().toString());
 
-            transaction.setAmount(Long.parseLong(((EditText) findViewById(R.id.etAmount)).getText().toString()));
+            // Amount
+            EditText etAmount = findViewById(R.id.etAmount);
+            if (etAmount.getText().toString().isEmpty()) {
+                etAmount.setError(getResources().getString(R.string.required_field));
+                return;
+            }
+            transaction.setAmount(Long.parseLong(etAmount.getText().toString()));
+
+            // Categories
 
             ArrayList<Transaction.Category> categories = new ArrayList<>();
             for (int i = 0; i < checkBoxes.size(); i++) {
