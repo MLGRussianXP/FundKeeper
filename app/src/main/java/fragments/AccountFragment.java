@@ -81,7 +81,7 @@ public class AccountFragment extends Fragment {
                         setSpinnerOnClickListener();
                     } else
                         Toast.makeText(getContext(), getResources().getString(R.string.error_no_bank_accounts_found), Toast.LENGTH_LONG).show();
-                } catch (NullPointerException ignored) {
+                } catch (NullPointerException | IllegalStateException ignored) {
                 }
             }
 
