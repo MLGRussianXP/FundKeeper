@@ -13,7 +13,7 @@
 
 ## Development
 
-Start by cloning this repo:
+Start by cloning this repo (_it's private right now_):
 ```
 git clone https://github.com/MLGRussianXP/FundKeeper
 ```
