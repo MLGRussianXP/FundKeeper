@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import adapters.HistoryTransactionsAdapter;
 import decorations.DividerTransactionDecoration;
@@ -28,6 +32,9 @@ import models.Transaction;
 public class HistoryFragment extends Fragment {
     private final ArrayList<Transaction> transactions = new ArrayList<>();
     HistoryTransactionsAdapter adapter;
+
+    private LinearLayout dataLayout;
+    private TextView tvEmpty;
 
     public HistoryFragment() {
     }
@@ -42,11 +49,17 @@ public class HistoryFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.rvTransactions);
         recyclerView.addItemDecoration(new DividerTransactionDecoration(requireContext()));
 
-        adapter = new HistoryTransactionsAdapter(getContext(), transactions, HistoryTransactionsAdapter.Period.DAY, isEmpty -> {
-            if (isEmpty)
-                view.findViewById(R.id.tvEmpty).setVisibility(View.VISIBLE);
-            else
-                view.findViewById(R.id.tvEmpty).setVisibility(View.GONE);
+        dataLayout = view.findViewById(R.id.dataLayout);
+        tvEmpty = view.findViewById(R.id.tvEmpty);
+        adapter = new HistoryTransactionsAdapter(getContext(), transactions, HistoryTransactionsAdapter.Period.DAY, view.findViewById(R.id.chart), isEmpty -> {
+            if (isEmpty) {
+                dataLayout.setVisibility(View.GONE);
+                tvEmpty.setVisibility(View.VISIBLE);
+            }
+            else {
+                dataLayout.setVisibility(View.VISIBLE);
+                tvEmpty.setVisibility(View.GONE);
+            }
         });
         recyclerView.setAdapter(adapter);
 

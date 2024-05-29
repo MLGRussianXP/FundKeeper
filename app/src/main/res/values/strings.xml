@@ -25,6 +25,7 @@
     <string name="required_field">Required field</string>
     <string name="length_no_more_than">Length can\'t be more than %1$d characters</string>
 
+    <string name="transactions">Transactions</string>
     <string name="name">Name</string>
     <string name="income">Income</string>
     <string name="expense">Expense</string>
@@ -41,6 +42,27 @@
     <string name="week">Week</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">May</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dec</string>
 
     <string name="add_new_account">Add new account</string>
     <string name="bank_account_background">Bank account background</string>

@@ -13,6 +13,7 @@ googleServices = "4.4.1"
 firebaseDatabase = "21.0.0"
 firebaseAuth = "23.0.0"
 #noinspection GradleDependency
+mpandroidchart = "v3.1.0"
 playServicesAuthVersion = "20.3.0"
 workRuntime = "2.9.0"
 volley = "1.2.1"
@@ -30,6 +31,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 play-services-auth-v2030 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
