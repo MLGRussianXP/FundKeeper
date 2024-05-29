@@ -12,8 +12,8 @@ constraintlayout = "2.1.4"
 googleServices = "4.4.1"
 firebaseDatabase = "21.0.0"
 firebaseAuth = "23.0.0"
-#noinspection GradleDependency
 mpandroidchart = "v3.1.0"
+#noinspection GradleDependency
 playServicesAuthVersion = "20.3.0"
 workRuntime = "2.9.0"
 volley = "1.2.1"
